@@ -4,13 +4,38 @@ import Navbar from "@/components/navbar-client-wrapper";
 import Footer from "@/components/footer";
 import Image from "next/image";
 import { useLanguage } from "@/context/language-context";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion
+
+// Animation variants
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
+const fadeInVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.8 } },
+};
+
+const loadingVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.5, yoyo: Infinity } },
+};
 
 export default function GalleryPage() {
   const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState("all");
   const [visibleItems, setVisibleItems] = useState(6);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate loading effect
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // Simulate a 2-second loading time
+    return () => clearTimeout(timer);
+  }, []);
 
   // Sample gallery categories and images
   const categories = [
@@ -121,11 +146,11 @@ export default function GalleryPage() {
 
   // Filter gallery items based on active category
   const filteredItems = galleryItems.filter(
-    (item) => activeCategory === "all" || item.category === activeCategory,
+    (item) => activeCategory === "all" || item.category === activeCategory
   );
 
   // Handle category change
-  const handleCategoryChange = (categoryId) => {
+  const handleCategoryChange = (categoryId: string) => {
     setActiveCategory(categoryId);
     setVisibleItems(6); // Reset visible items when changing category
   };
@@ -139,13 +164,35 @@ export default function GalleryPage() {
     }, 800);
   };
 
+  if (isLoading) {
+    return (
+      <motion.div
+        className="flex items-center justify-center min-h-screen bg-white dark:bg-gray-900"
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        variants={fadeInVariants}
+      >
+        <motion.div
+          className="w-16 h-16 border-4 border-t-[#468e83] border-gray-300 rounded-full animate-spin"
+          variants={loadingVariants}
+        ></motion.div>
+      </motion.div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Navbar />
 
       <main>
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900">
+        <motion.section
+          className="py-20 bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900"
+          initial="hidden"
+          animate="visible"
+          variants={fadeUpVariants}
+        >
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto">
               <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
@@ -157,30 +204,47 @@ export default function GalleryPage() {
               </p>
             </div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Gallery Section */}
-        <section className="py-16 bg-white dark:bg-gray-900">
+        <motion.section
+          className="py-16 bg-white dark:bg-gray-900"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUpVariants}
+        >
           <div className="container mx-auto px-4">
             {/* Category Filter */}
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
+            <motion.div
+              className="flex flex-wrap justify-center gap-4 mb-12"
+              variants={fadeUpVariants}
+            >
               {categories.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => handleCategoryChange(category.id)}
-                  className={`px-6 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${category.id === activeCategory ? "bg-blue-600 text-white" : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-gray-700"}`}
+                  className={`px-6 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
+                    category.id === activeCategory
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-gray-700"
+                  }`}
                 >
                   {category.name}
                 </button>
               ))}
-            </div>
+            </motion.div>
 
             {/* Gallery Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              variants={fadeUpVariants}
+            >
               {filteredItems.slice(0, visibleItems).map((item) => (
-                <div
+                <motion.div
                   key={item.id}
                   className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  variants={fadeUpVariants}
                 >
                   <div className="aspect-video overflow-hidden">
                     <Image
@@ -207,13 +271,16 @@ export default function GalleryPage() {
                       </span>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Show More Button */}
             {visibleItems < filteredItems.length && (
-              <div className="text-center mt-12">
+              <motion.div
+                className="text-center mt-12"
+                variants={fadeUpVariants}
+              >
                 <button
                   onClick={handleShowMore}
                   disabled={isLoading}
@@ -241,16 +308,16 @@ export default function GalleryPage() {
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                         ></path>
                       </svg>
-                      t("loading") || "Loading..."
+                      {t("loading") || "Loading..."}
                     </>
                   ) : (
                     t("showMore") || "Show More"
                   )}
                 </button>
-              </div>
+              </motion.div>
             )}
           </div>
-        </section>
+        </motion.section>
       </main>
 
       <Footer />

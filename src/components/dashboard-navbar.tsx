@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { createClient } from "../../supabase/client";
+import { createClient } from "../../supabase/client"; // Updated import
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Button } from "./ui/button";
 import {
   UserCircle,
@@ -27,7 +28,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function DashboardNavbar() {
-  const supabase = createClient();
+  const supabase = createClientComponentClient(); // Updated function call
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 

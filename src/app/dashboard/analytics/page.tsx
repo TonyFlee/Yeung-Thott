@@ -372,4 +372,18 @@ export default function AnalyticsPage() {
                     { country: "United States", visits: 865 },
                     { country: "Thailand", visits: 432 },
                     { country: "Vietnam", visits: 321 },
-                  ].map((item, index) =>
+                  ].map((item, index) => (
+                    <div key={index} className="flex justify-between items-center">
+                      <span className="text-sm text-gray-700 dark:text-gray-300">{item.country}</span>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">{item.visits}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+                </motion.div>
+                </TabsContent>
+              </Tabs>
+            </div>
+          </div>
+        );
+      }

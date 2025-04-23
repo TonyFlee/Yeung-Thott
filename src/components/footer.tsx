@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin, Phone, Globe } from "lucide-react";
 import { useLanguage } from "@/context/language-context";
 import { motion } from "framer-motion";
 
@@ -22,11 +22,10 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
           >
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
-              YEUNG THOTT
+              {t("nameweb")}
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-4">
-              A professional team dedicated to excellence and innovation in
-              everything we do.
+              {t("prompt")}
             </p>
             <div className="flex space-x-4">
               <motion.a
@@ -40,15 +39,16 @@ export default function Footer() {
                 <span className="sr-only">Facebook</span>
                 <Facebook className="h-6 w-6" />
               </motion.a>
-              <motion.a
-                href="#"
+                <motion.a
+                href="yeung-thott.vercel.app"
+                target="_blank"
                 className="text-[#468e83] hover:text-[#468e83]/80 dark:text-[#e3e7d7] dark:hover:text-[#e3e7d7]/80 transition-colors duration-300"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-              >
-                <span className="sr-only">Instagram</span>
-                <Instagram className="h-6 w-6" />
-              </motion.a>
+                >
+                <span className="sr-only">Website</span>
+                <Globe className="h-6 w-6" />
+                </motion.a>
             </div>
           </motion.div>
 
@@ -63,9 +63,17 @@ export default function Footer() {
               {t("quickLinks")}
             </h3>
             <ul className="space-y-2">
+            <li>
+                <Link
+                  href="/"
+                  className="text-gray-600 dark:text-gray-400 hover:text-[#468e83] dark:hover:text-[#e3e7d7] transition-colors duration-300 inline-block relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#468e83] dark:after:bg-[#e3e7d7] after:left-0 after:-bottom-0.5 hover:after:w-full after:transition-all after:duration-300"
+                >
+                  {t("home")}
+                </Link>
+              </li>
               <li>
                 <Link
-                  href="#about"
+                  href="/about"
                   className="text-gray-600 dark:text-gray-400 hover:text-[#468e83] dark:hover:text-[#e3e7d7] transition-colors duration-300 inline-block relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#468e83] dark:after:bg-[#e3e7d7] after:left-0 after:-bottom-0.5 hover:after:w-full after:transition-all after:duration-300"
                 >
                   {t("about")}
@@ -73,7 +81,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#gallery"
+                  href="/gallery"
                   className="text-gray-600 dark:text-gray-400 hover:text-[#468e83] dark:hover:text-[#e3e7d7] transition-colors duration-300 inline-block relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#468e83] dark:after:bg-[#e3e7d7] after:left-0 after:-bottom-0.5 hover:after:w-full after:transition-all after:duration-300"
                 >
                   {t("gallery")}
@@ -81,15 +89,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#facebook-posts"
-                  className="text-gray-600 dark:text-gray-400 hover:text-[#468e83] dark:hover:text-[#e3e7d7] transition-colors duration-300 inline-block relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#468e83] dark:after:bg-[#e3e7d7] after:left-0 after:-bottom-0.5 hover:after:w-full after:transition-all after:duration-300"
-                >
-                  {t("updates")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#contact"
+                  href="/#contact"
                   className="text-gray-600 dark:text-gray-400 hover:text-[#468e83] dark:hover:text-[#e3e7d7] transition-colors duration-300 inline-block relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#468e83] dark:after:bg-[#e3e7d7] after:left-0 after:-bottom-0.5 hover:after:w-full after:transition-all after:duration-300"
                 >
                   {t("contact")}

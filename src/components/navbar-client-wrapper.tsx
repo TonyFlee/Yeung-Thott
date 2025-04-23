@@ -1,7 +1,7 @@
 "use client";
 
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
-import { createClientComponentClient } from "../../supabase/client";
 import NavbarLogo from "./navbar-logo";
 import NavbarClient from "./navbar-client";
 

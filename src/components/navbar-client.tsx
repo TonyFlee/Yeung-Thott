@@ -8,10 +8,22 @@ import LanguageSwitcher from "./language-switcher";
 import ThemeToggle from "./theme-toggle";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/language-context";
+import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion
 
 interface NavbarClientProps {
   isAdmin: boolean;
 }
+
+// Animation variants
+const fadeInVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.5 } },
+};
+
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
 
 export default function NavbarClient({ isAdmin }: NavbarClientProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -25,35 +37,29 @@ export default function NavbarClient({ isAdmin }: NavbarClientProps) {
   return (
     <>
       {/* Desktop Navigation */}
-      <div className="hidden md:flex gap-8 items-center">
-        <Link
-          href="#about"
-          className="text-gray-700 dark:text-gray-300 hover:text-[#468e83] dark:hover:text-[#e3e7d7] font-medium transition-colors duration-300 relative group"
-        >
-          {t("about")}
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#468e83] dark:bg-[#e3e7d7] transition-all duration-300 group-hover:w-full"></span>
-        </Link>
-        <Link
-          href="#gallery"
-          className="text-gray-700 dark:text-gray-300 hover:text-[#468e83] dark:hover:text-[#e3e7d7] font-medium transition-colors duration-300 relative group"
-        >
-          {t("gallery")}
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#468e83] dark:bg-[#e3e7d7] transition-all duration-300 group-hover:w-full"></span>
-        </Link>
-        <Link
-          href="#facebook-posts"
-          className="text-gray-700 dark:text-gray-300 hover:text-[#468e83] dark:hover:text-[#e3e7d7] font-medium transition-colors duration-300 relative group"
-        >
-          {t("updates")}
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#468e83] dark:bg-[#e3e7d7] transition-all duration-300 group-hover:w-full"></span>
-        </Link>
-        <Link
-          href="#contact"
-          className="text-gray-700 dark:text-gray-300 hover:text-[#468e83] dark:hover:text-[#e3e7d7] font-medium transition-colors duration-300 relative group"
-        >
-          {t("contact")}
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#468e83] dark:bg-[#e3e7d7] transition-all duration-300 group-hover:w-full"></span>
-        </Link>
+      <motion.div
+        className="hidden md:flex gap-8 items-center"
+        initial="hidden"
+        animate="visible"
+        variants={fadeInVariants} // Fade-in animation for desktop navigation
+      >
+        {["home", "about", "gallery", "contact"].map((item, index) => (
+          <motion.div
+            key={item}
+            variants={fadeUpVariants} // Fade-up animation for each link
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: index * 0.1 }}
+          >
+            <Link
+              href={`/${item === "home" ? "" : item}`}
+              className="text-gray-700 dark:text-gray-300 hover:text-[#468e83] dark:hover:text-[#e3e7d7] font-medium transition-colors duration-300 relative group"
+            >
+              {t(item)}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#468e83] dark:bg-[#e3e7d7] transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+          </motion.div>
+        ))}
 
         <div className="flex gap-4 items-center ml-4">
           {/* Language Switcher */}
@@ -63,17 +69,29 @@ export default function NavbarClient({ isAdmin }: NavbarClientProps) {
           <ThemeToggle />
 
           {isAdmin && (
-            <Link href="/dashboard">
-              <Button className="bg-[#468e83] hover:bg-[#468e83]/90 text-white transition-all duration-300 transform hover:scale-105">
-                {t("dashboard")}
-              </Button>
-            </Link>
+            <motion.div
+              variants={fadeUpVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: 0.4 }}
+            >
+              <Link href="/dashboard">
+                <Button className="bg-[#468e83] hover:bg-[#468e83]/90 text-white transition-all duration-300 transform hover:scale-105">
+                  {t("dashboard")}
+                </Button>
+              </Link>
+            </motion.div>
           )}
         </div>
-      </div>
+      </motion.div>
 
       {/* Mobile Menu Button */}
-      <div className="md:hidden">
+      <motion.div
+        className="md:hidden"
+        initial="hidden"
+        animate="visible"
+        variants={fadeInVariants} // Fade-in animation for mobile menu button
+      >
         <div className="flex items-center gap-2">
           <LanguageSwitcher />
           <ThemeToggle />
@@ -90,60 +108,63 @@ export default function NavbarClient({ isAdmin }: NavbarClientProps) {
             )}
           </Button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Mobile Navigation */}
-      {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 p-4 z-50 animate-in fade-in slide-in-from-top-5 duration-300">
-          <div className="flex flex-col space-y-4">
-            <Link
-              href="#about"
-              className="text-gray-700 dark:text-gray-300 hover:text-[#468e83] dark:hover:text-[#e3e7d7] font-medium transition-colors duration-300 py-2 px-3 rounded-md hover:bg-[#468e83]/10 dark:hover:bg-[#e3e7d7]/10"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {t("about")}
-            </Link>
-            <Link
-              href="#gallery"
-              className="text-gray-700 dark:text-gray-300 hover:text-[#468e83] dark:hover:text-[#e3e7d7] font-medium transition-colors duration-300 py-2 px-3 rounded-md hover:bg-[#468e83]/10 dark:hover:bg-[#e3e7d7]/10"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {t("gallery")}
-            </Link>
-            <Link
-              href="#facebook-posts"
-              className="text-gray-700 dark:text-gray-300 hover:text-[#468e83] dark:hover:text-[#e3e7d7] font-medium transition-colors duration-300 py-2 px-3 rounded-md hover:bg-[#468e83]/10 dark:hover:bg-[#e3e7d7]/10"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {t("updates")}
-            </Link>
-            <Link
-              href="#contact"
-              className="text-gray-700 dark:text-gray-300 hover:text-[#468e83] dark:hover:text-[#e3e7d7] font-medium transition-colors duration-300 py-2 px-3 rounded-md hover:bg-[#468e83]/10 dark:hover:bg-[#e3e7d7]/10"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {t("contact")}
-            </Link>
-
-            {isAdmin && (
-              <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
-                <Link
-                  href="/dashboard"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="inline-block"
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 p-4 z-50"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex flex-col space-y-4">
+              {["about", "gallery", "facebook-posts", "contact"].map((item) => (
+                <motion.div
+                  key={item}
+                  variants={fadeUpVariants} // Fade-up animation for each mobile link
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ delay: 0.1 }}
                 >
-                  <Button
-                    size="sm"
-                    className="bg-[#468e83] hover:bg-[#468e83]/90 text-white transition-all duration-300 transform hover:scale-105"
+                  <Link
+                    href={`/${item === "facebook-posts" ? "updates" : item}`}
+                    className="text-gray-700 dark:text-gray-300 hover:text-[#468e83] dark:hover:text-[#e3e7d7] font-medium transition-colors duration-300 py-2 px-3 rounded-md hover:bg-[#468e83]/10 dark:hover:bg-[#e3e7d7]/10"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
-                    {t("dashboard")}
-                  </Button>
-                </Link>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+                    {t(item)}
+                  </Link>
+                </motion.div>
+              ))}
+
+              {isAdmin && (
+                <motion.div
+                  className="pt-4 border-t border-gray-100 dark:border-gray-800"
+                  variants={fadeUpVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ delay: 0.2 }}
+                >
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="inline-block"
+                  >
+                    <Button
+                      size="sm"
+                      className="bg-[#468e83] hover:bg-[#468e83]/90 text-white transition-all duration-300 transform hover:scale-105"
+                    >
+                      {t("dashboard")}
+                    </Button>
+                  </Link>
+                </motion.div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

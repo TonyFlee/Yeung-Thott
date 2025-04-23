@@ -11,7 +11,7 @@ export default function NavbarLogo() {
         e.preventDefault();
         window.location.reload();
       }}
-      className="text-2xl font-bold text-blue-600 dark:text-blue-400 hover:text-[#468e83] dark:hover:text-[#e3e7d7] transition-colors"
+      className="text-2xl font-bold text-[#468e83] dark:text-[#e3e7d7] hover:text-[#e3e7d7] dark:hover:text-[#468e83] transition-colors"
     >
       YEUNG THOTT
     </Link>
