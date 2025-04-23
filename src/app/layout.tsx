@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "យើង ថត | YEUNG THOTT",
-  description: "A modern full-stack starter template powered by Next.js",
+  description: "Preserving life’s most beautiful moments through the lens. Let’s turn your memories into timeless art.📸🍃",
   icons: {
     icon: "/favicon.ico",
   },

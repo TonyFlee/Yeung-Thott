@@ -5,7 +5,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About Us - YEUNG THOTT",
-  description: "Learn more about YEUNG THOTT team and our mission.",
+  description: "About Us - យើងថត | YEUNG THOTT",
 };
 
 export default function AboutPage() {
@@ -87,8 +87,8 @@ export default function AboutPage() {
                   <Image
                     src="https://i.imgur.com/rpLidJF.png"
                     alt="Our Team"
-                    width={600}
-                    height={400}
+                    width={700}
+                    height={500}
                     className="w-full h-auto rounded-xl relative z-10"
                   />
                 </div>
@@ -202,22 +202,16 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 {
-                  name: "John Doe",
+                  name: "Uth David",
                   role: "Team Leader",
                   image:
-                    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+                    "https://i.imgur.com/nUBvrcG.jpeg",
                 },
                 {
-                  name: "Jane Smith",
+                  name: "Torn Visal",
                   role: "Senior Member",
                   image:
-                    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80",
-                },
-                {
-                  name: "David Chen",
-                  role: "Team Member",
-                  image:
-                    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
+                    "https://i.imgur.com/Gutk4Oa.jpeg",
                 },
               ].map((member, index) => (
                 <div
