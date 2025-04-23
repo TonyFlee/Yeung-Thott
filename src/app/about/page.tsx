@@ -85,7 +85,7 @@ export default function AboutPage() {
                 <div className="relative rounded-xl overflow-hidden shadow-xl">
                   <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur-lg opacity-20 animate-pulse"></div>
                   <Image
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80"
+                    src="https://i.imgur.com/rpLidJF.png"
                     alt="Our Team"
                     width={600}
                     height={400}
