@@ -17,6 +17,7 @@ const loadingVariants = {
   visible: { opacity: 1, transition: { duration: 0.5, yoyo: Infinity } },
 };
 
+
 const teamMembers = [
   {
     nameKey: "member1Name",

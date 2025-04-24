@@ -41,9 +41,10 @@ type TranslationKey =
   | "showLess"
   | "loading"
   | "all"
-  | "projects"
+  | "project"
   | "team"
   | "events"
+  | "sport"
   | "dashboard"
   | "address"
   | "phone"
@@ -154,9 +155,10 @@ export const translations: Translations = {
     showLess: "Show Less",
     loading: "Loading...",
     all: "All",
-    projects: "Projects",
+    project: "Projects",
     team: "Team",
     events: "Events",
+    sport: "Sport",
     dashboard: "Dashboard",
     address: "123 Main Street, Phnom Penh, Cambodia",
     phone: "+855 69 895 443",
@@ -218,7 +220,7 @@ export const translations: Translations = {
     member1Desc: "Uth David is a passionate professional with expertise in photography and color grading. His dedication to creativity and precision allows him to deliver exceptional visual results. With a strong eye for detail, he plays a key role in producing high-quality, innovative work.",
     member2Name: "Torn Visal",
     member2Role: "Social Media Manager",
-    member2Desc: "Torn Visal is a dedicated individual in the early stages of his career, managing the Facebook page and website. He posts Uth David's stunning photography, ensuring the team's work reaches a wider audience. And focused on learning and growing, maintaining an active online presence.",
+    member2Desc: "Torn Visal is a skilled social media manager with a knack for creating engaging content and building online communities. His strategic approach to social media helps connect our brand with our audience, ensuring that our message resonates and reaches the right people.",
   },
   km: {
     nameweb: "យើងថត",
@@ -266,9 +268,10 @@ export const translations: Translations = {
     showLess: "បង្ហាញតិចជាងនេះ",
     loading: "កំពុងផ្ទុក...",
     all: "ទាំងអស់",
-    projects: "គម្រោង",
+    project: "គម្រោង",
     team: "ក្រុម",
     events: "ព្រឹត្តិការណ៍",
+    sport: "កីឡា",
     dashboard: "ផ្ទាំងគ្រប់គ្រង",
     address: "១២៣ ផ្លូវមេន ភ្នំពេញ កម្ពុជា",
     phone: "+៨៥៥ ៦៩ ៨៩៥ ៤៤៣",
@@ -334,7 +337,7 @@ export const translations: Translations = {
     member1Desc: "អ៊ុត ដាវីត គឺជាអ្នកជំនាញមានចិត្តស្មោះត្រង់ក្នុងវិស័យថតរូប និងការកែពណ៌។ ការខិតខំរបស់គាត់ក្នុងការច្នៃប្រឌិត និងភាពត្រឹមត្រូវអនុញ្ញាតឱ្យគាត់ផ្តល់លទ្ធផលវិចិត្រសិល្ប៍ល្អឥតខ្ចោះ។ មានការយល់ឃើញច្បាស់ពីលម្អិត គាត់មានតួនាទីសំខាន់ក្នុងការផ្តល់ការងារដែលមានគុណភាពខ្ពស់ និងច្នៃប្រឌិត។",
     member2Name: "ទន វិសាល",
     member2Role: "អ្នកគ្រប់គ្រងទំព័រ និងអ្នកបង្កើតមាតិកា",
-    member2Desc: "ទន វិសាល គឺជាអ្នកមានចិត្តស្មោះត្រង់ និងកំពុងនៅនៅដំណាក់កាលដំបូងនៃអាជីពរបស់គាត់ក្នុងការគ្រប់គ្រងទំព័រហ្វេសប៊ុក និងគេហទំព័រ។ គាត់បង្ហោះរូបភាពដ៏ស្រស់ស្អាតរបស់ អ៊ុត ដាវីត ដើម្បីធានាថាការងាររបស់ក្រុមបានឈានទៅកាន់អ្នកទស្សនាកាន់តែមានអារម្មណ៍។ ហើយផ្តោតលើការស្វែងរក និងការលូតលាស់ នៅក្នុងការរក្សាទំនាក់ទំនងអនឡាញសកម្ម។",
+    member2Desc: "ទន វិសាល គឺកំពុងស្ថិតនៅដំណាក់កាលដំបូងនៃអាជីពរបស់គាត់ក្នុងការគ្រប់គ្រងទំព័រហ្វេសប៊ុក និងគេហទំព័រ។ និងធ្វើការផ្សព្វផ្សាយរូបភាពជាប្រចាំ ដើម្បីធានាថាការងាររបស់ក្រុមបានឈានទៅកាន់អ្នកទស្សនាកាន់តែមានអារម្មណ៍ល្អ។ ហើយផ្តោតលើការស្វែងរក និងការលូតលាស់ នៅក្នុងការរក្សាទំនាក់ទំនងអនឡាញសកម្ម។",
   },
 };
 
