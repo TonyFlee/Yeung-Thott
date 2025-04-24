@@ -38,19 +38,31 @@ const loadingVariants = {
 export default function Home() {
   const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingText, setLoadingText] = useState("Loading.");
 
   // Simulate loading effect
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000); // Simulate a 2-second loading time
-    return () => clearTimeout(timer);
+
+    // Animate loading text
+    let dots = 1;
+    const loadingInterval = setInterval(() => {
+      dots = dots === 3 ? 1 : dots + 1;
+      setLoadingText(`Loading${".".repeat(dots)}`);
+    }, 400);
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(loadingInterval);
+    };
   }, []);
 
   if (isLoading) {
     return (
       <motion.div
-        className="flex items-center justify-center min-h-screen bg-white dark:bg-gray-900"
+        className="flex flex-col items-center justify-center min-h-screen bg-white dark:bg-gray-900"
         initial="hidden"
         animate="visible"
         exit="hidden"
@@ -60,6 +72,12 @@ export default function Home() {
           className="w-16 h-16 border-4 border-t-[#468e83] border-gray-300 rounded-full animate-spin"
           variants={loadingVariants}
         ></motion.div>
+        <motion.div
+          className="mt-6 text-lg font-medium text-[#468e83]"
+          variants={loadingVariants}
+        >
+          {loadingText}
+        </motion.div>
       </motion.div>
     );
   }
@@ -103,11 +121,11 @@ export default function Home() {
               <h3 className="text-2xl font-bold mb-4">{t("ourStory")}</h3>
               <p className="text-gray-600 mb-6">
                 {t("foundedWithVision") ||
-                  "Founded with a vision to make a difference, YEUNG THOTT has grown from a small team to a thriving organization. We believe in the power of collaboration, creativity, and commitment."}
+                  "YEUNG THOTT started as a small group of friends with big dreams. At first, we didn’t have much—just our passion, curiosity, and the hope that we could create something meaningful. We didn’t come from professional backgrounds, but we believed that with enough effort, anyone can learn, improve, and make a difference."}
               </p>
               <p className="text-gray-600 mb-6">
                 {t("diverseTalents") ||
-                  "Our team brings together diverse talents and perspectives, united by a shared passion for excellence and innovation."}
+                  "At YEUNG THOTT, we welcome everyone with an open heart. We believe in growing together, helping one another, and building a future filled with hope, innovation, and positive change. Our story is just beginning, and we’re excited for what lies ahead."}
               </p>
               <Link
                 href="/about"
@@ -134,7 +152,7 @@ export default function Home() {
         <h2 className="text-3xl font-bold mb-4">{t("whatWeOffer")}</h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
           {t("comprehensiveRange") ||
-            "Discover our comprehensive range of services designed to meet your needs and exceed your expectations."}
+            "Take a look at all the services we offer. We’ve created them to fit your needs and hopefully give you even more than you expected."}
         </p>
           </div>
 
@@ -223,21 +241,21 @@ export default function Home() {
             id: 1,
             imageUrl: "https://i.imgur.com/tW2hYph.jpeg",
             description: "វិចិត្រសាលធាម-Theam’s Gallery ក្នុងខេត្តសៀមរាប🖼️ #យើងថត #yeungThott",
-            date: "2023-10-01",
+            date: "2025-01-31",
             href: "https://www.facebook.com/share/p/1FSw3j1jEk/",
           },
           {
             id: 2,
             imageUrl: "https://i.imgur.com/aHY2An2.jpeg",
             description: "អបអរសាទរឆ្នាំថ្មីខ្មែរ ការរៀបចំសង្ក្រាន្តនៅក្នុងកំពង់ធំ #យើងថត #YeungThott",
-            date: "2023-09-28",
+            date: "2025-04-16",
             href: "https://www.facebook.com/share/p/1AfxR9qqQB/",
           },
           {
             id: 3,
             imageUrl: "https://i.imgur.com/1WKDiWf.jpeg",
             description: "សង្ក្រាន្តខេត្តកំពង់ធំ ការប្រារព្ធពិធី ស្រង់ព្រះពូនភ្នំខ្សាច់ #យើងថត #YeungThott",
-            date: "2023-09-25",
+            date: "2025-04-17",
             href: "https://www.facebook.com/share/p/1AnQ9MrL1c/",
           },
         ].map((post) => (

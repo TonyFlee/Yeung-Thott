@@ -5,7 +5,7 @@ import Footer from "@/components/footer";
 import Image from "next/image";
 import { useLanguage } from "@/context/language-context";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion
+import { motion, AnimatePresence } from "framer-motion";
 
 // Animation variants
 const fadeUpVariants = {
@@ -28,16 +28,28 @@ export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [visibleItems, setVisibleItems] = useState(6);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingText, setLoadingText] = useState("Loading.");
 
-  // Simulate loading effect
+  // Simulate initial loading effect
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // Simulate a 2-second loading time
-    return () => clearTimeout(timer);
+    }, 1500);
+
+    // Animate loading text
+    let dots = 1;
+    const loadingInterval = setInterval(() => {
+      dots = dots === 3 ? 1 : dots + 1;
+      setLoadingText(`Loading${".".repeat(dots)}`);
+    }, 400);
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(loadingInterval);
+    };
   }, []);
 
-  // Sample gallery categories and images
+  // Sample categories and images
   const categories = [
     { id: "all", name: t("all") || "All" },
     { id: "projects", name: t("projects") || "Projects" },
@@ -152,22 +164,22 @@ export default function GalleryPage() {
   // Handle category change
   const handleCategoryChange = (categoryId: string) => {
     setActiveCategory(categoryId);
-    setVisibleItems(6); // Reset visible items when changing category
+    if (categoryId === "all") {
+      setVisibleItems((prev) => Math.max(prev, 6));
+    } else {
+      setVisibleItems(6);
+    }
   };
 
   // Handle show more button click
   const handleShowMore = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setVisibleItems(Math.min(filteredItems.length, visibleItems + 6));
-      setIsLoading(false);
-    }, 800);
+    setVisibleItems(Math.min(filteredItems.length, visibleItems + 6));
   };
 
   if (isLoading) {
     return (
       <motion.div
-        className="flex items-center justify-center min-h-screen bg-white dark:bg-gray-900"
+        className="flex flex-col items-center justify-center min-h-screen bg-white dark:bg-gray-900"
         initial="hidden"
         animate="visible"
         exit="hidden"
@@ -177,6 +189,12 @@ export default function GalleryPage() {
           className="w-16 h-16 border-4 border-t-[#468e83] border-gray-300 rounded-full animate-spin"
           variants={loadingVariants}
         ></motion.div>
+        <motion.div
+          className="mt-6 text-lg font-medium text-[#468e83]"
+          variants={loadingVariants}
+        >
+          {loadingText}
+        </motion.div>
       </motion.div>
     );
   }
@@ -226,7 +244,7 @@ export default function GalleryPage() {
                   onClick={() => handleCategoryChange(category.id)}
                   className={`px-6 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
                     category.id === activeCategory
-                      ? "bg-blue-600 text-white"
+                      ? "bg-[#468e83] text-white"
                       : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-gray-700"
                   }`}
                 >
@@ -240,39 +258,44 @@ export default function GalleryPage() {
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
               variants={fadeUpVariants}
             >
-              {filteredItems.slice(0, visibleItems).map((item) => (
-                <motion.div
-                  key={item.id}
-                  className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                  variants={fadeUpVariants}
-                >
-                  <div className="aspect-video overflow-hidden">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      width={600}
-                      height={400}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      {item.description}
-                    </p>
-                    <div className="mt-4">
-                      <span className="inline-block px-3 py-1 text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full">
-                        {
-                          categories.find((cat) => cat.id === item.category)
-                            ?.name
-                        }
-                      </span>
+              <AnimatePresence>
+                {filteredItems.slice(0, visibleItems).map((item) => (
+                  <motion.div
+                    key={item.id}
+                    className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                    variants={fadeUpVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                  >
+                    <div className="aspect-video overflow-hidden">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        width={600}
+                        height={400}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-300">
+                        {item.description}
+                      </p>
+                      <div className="mt-4">
+                        <span className="inline-block px-3 py-1 text-xs font-medium bg-[#e3e7d7] dark:bg-[#468e83] text-[#468e83] dark:text-[#e3e7d7] rounded-full">
+                          {
+                            categories.find((cat) => cat.id === item.category)
+                              ?.name
+                          }
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </motion.div>
 
             {/* Show More Button */}
@@ -283,36 +306,9 @@ export default function GalleryPage() {
               >
                 <button
                   onClick={handleShowMore}
-                  disabled={isLoading}
-                  className="inline-flex items-center justify-center px-6 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-70"
+                  className="inline-flex items-center justify-center px-6 py-3 text-white bg-[#468e83] rounded-lg hover:bg-[#2e5c55] transition-colors"
                 >
-                  {isLoading ? (
-                    <>
-                      <svg
-                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        ></circle>
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
-                      </svg>
-                      {t("loading") || "Loading..."}
-                    </>
-                  ) : (
-                    t("showMore") || "Show More"
-                  )}
+                  {t("showMore") || "Show More"}
                 </button>
               </motion.div>
             )}

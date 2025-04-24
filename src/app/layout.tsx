@@ -23,7 +23,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Dangrek&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Nokora:wght@100;300;400;700;900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

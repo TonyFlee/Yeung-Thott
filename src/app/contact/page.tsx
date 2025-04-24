@@ -4,7 +4,7 @@ import Navbar from "@/components/navbar-client-wrapper";
 import Footer from "@/components/footer";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/language-context";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import emailjs from "emailjs-com";
 
 // Animation variants
@@ -18,12 +18,60 @@ const buttonVariants = {
   tap: { scale: 0.95 },
 };
 
+const loadingVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.4, yoyo: Infinity } },
+};
+
 export default function ContactPage() {
   const { t } = useLanguage();
   const formRef = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Page loading animation state
+  const [pageLoading, setPageLoading] = useState(true);
+  const [loadingText, setLoadingText] = useState("Loading.");
+
+  useEffect(() => {
+    const timer = setTimeout(() => setPageLoading(false), 1200);
+
+    // Animate loading text
+    let dots = 1;
+    const loadingInterval = setInterval(() => {
+      dots = dots === 3 ? 1 : dots + 1;
+      setLoadingText(`Loading${".".repeat(dots)}`);
+    }, 400);
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(loadingInterval);
+    };
+  }, []);
+
+  if (pageLoading) {
+    return (
+      <motion.div
+        className="flex flex-col items-center justify-center min-h-screen bg-white dark:bg-gray-900"
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        variants={loadingVariants}
+      >
+        <motion.div
+          className="w-16 h-16 border-4 border-t-[#468e83] border-gray-300 rounded-full animate-spin"
+          variants={loadingVariants}
+        ></motion.div>
+        <motion.div
+          className="mt-6 text-lg font-medium text-[#468e83]"
+          variants={loadingVariants}
+        >
+          {loadingText}
+        </motion.div>
+      </motion.div>
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

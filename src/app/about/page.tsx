@@ -1,249 +1,311 @@
-import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
-import Image from "next/image";
-import { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "About Us - YEUNG THOTT",
-  description: "About Us - យើងថត | YEUNG THOTT",
+import Navbar from "@/components/navbar-client-wrapper";
+import Footer from "@/components/footer";
+import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/language-context";
+import { useState, useEffect } from "react";
+
+// Animation variants
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-export default function AboutPage() {
+const loadingVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.5, yoyo: Infinity } },
+};
+
+const teamMembers = [
+  {
+    nameKey: "member1Name",
+    roleKey: "member1Role",
+    descKey: "member1Desc",
+    image: "https://i.imgur.com/nUBvrcG.jpeg",
+  },
+  {
+    nameKey: "member2Name",
+    roleKey: "member2Role",
+    descKey: "member2Desc",
+    image: "https://i.imgur.com/Gutk4Oa.jpeg",
+  },
+];
+
+export default function AboutsPage() {
+  const { t } = useLanguage();
+  const [loading, setLoading] = useState(true);
+  const [loadingText, setLoadingText] = useState("Loading.");
+  const [showMore, setShowMore] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200);
+
+    // Animate loading text
+    let dots = 1;
+    const loadingInterval = setInterval(() => {
+      dots = dots === 3 ? 1 : dots + 1;
+      setLoadingText(`Loading${".".repeat(dots)}`);
+    }, 400);
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(loadingInterval);
+    };
+  }, []);
+
+  if (loading) {
+    return (
+      <motion.div
+        className="flex flex-col items-center justify-center min-h-screen bg-white dark:bg-gray-900"
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        variants={loadingVariants}
+      >
+        <motion.div
+          className="w-16 h-16 border-4 border-t-[#468e83] border-gray-300 rounded-full animate-spin"
+          variants={loadingVariants}
+        ></motion.div>
+        <motion.div
+          className="mt-6 text-lg font-medium text-[#468e83]"
+          variants={loadingVariants}
+        >
+          {loadingText}
+        </motion.div>
+      </motion.div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Navbar />
 
       <main>
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900">
+        <motion.section
+          className="py-20 bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900"
+          initial="hidden"
+          animate="visible"
+          variants={fadeUpVariants}
+        >
+          <div className="container mx-auto px-4 text-center max-w-3xl">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+              {t("missionVisionTitle") || "Our Mission & Vision"}
+            </h1>
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">
+              {t("missionText") || "Our mission is to ..."}
+            </p>
+            <p className="text-xl text-gray-600 dark:text-gray-300">
+              {t("visionText") || "Our vision is to ..."}
+            </p>
+          </div>
+        </motion.section>
+
+        {/* Values Section */}
+        <motion.section
+          className="py-16 bg-white dark:bg-gray-900"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUpVariants}
+        >
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-                About YEUNG THOTT
-              </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-300">
-                A professional team dedicated to excellence and innovation
+            <div className="grid md:grid-cols-4 gap-8 text-center">
+              <motion.div variants={fadeUpVariants}>
+          <motion.div
+            className="text-5xl mb-4"
+            whileHover={{ scale: 1.2, rotate: 10 }}
+            whileTap={{ scale: 0.9, rotate: -10 }}
+          >
+            <img
+              src="https://em-content.zobj.net/thumbs/240/apple/354/glowing-star_1f31f.png"
+              alt="Excellence"
+              className="w-12 h-12 mx-auto"
+            />
+          </motion.div>
+          <h3 className="text-xl font-bold mb-2">{t("excellence") || "Excellence"}</h3>
+          <p className="text-gray-600 dark:text-gray-300">{t("excellenceDesc")}</p>
+              </motion.div>
+              <motion.div variants={fadeUpVariants}>
+          <motion.div
+            className="text-5xl mb-4"
+            whileHover={{ scale: 1.2, rotate: 10 }}
+            whileTap={{ scale: 0.9, rotate: -10 }}
+          >
+            <img
+              src="https://em-content.zobj.net/thumbs/240/apple/354/light-bulb_1f4a1.png"
+              alt="Innovation"
+              className="w-12 h-12 mx-auto"
+            />
+          </motion.div>
+          <h3 className="text-xl font-bold mb-2">{t("innovation") || "Innovation"}</h3>
+          <p className="text-gray-600 dark:text-gray-300">{t("innovationDesc")}</p>
+              </motion.div>
+              <motion.div variants={fadeUpVariants}>
+          <motion.div
+            className="text-5xl mb-4"
+            whileHover={{ scale: 1.2, rotate: 10 }}
+            whileTap={{ scale: 0.9, rotate: -10 }}
+          >
+            <img
+              src="https://em-content.zobj.net/thumbs/240/apple/354/handshake_1f91d.png"
+              alt="Integrity"
+              className="w-12 h-12 mx-auto"
+            />
+          </motion.div>
+          <h3 className="text-xl font-bold mb-2">{t("integrity") || "Integrity"}</h3>
+          <p className="text-gray-600 dark:text-gray-300">{t("integrityDesc")}</p>
+              </motion.div>
+              <motion.div variants={fadeUpVariants}>
+          <motion.div
+            className="text-5xl mb-4"
+            whileHover={{ scale: 1.2, rotate: 10 }}
+            whileTap={{ scale: 0.9, rotate: -10 }}
+          >
+            <img
+              src="https://em-content.zobj.net/thumbs/240/apple/354/busts-in-silhouette_1f465.png"
+              alt="Teamwork"
+              className="w-12 h-12 mx-auto"
+            />
+          </motion.div>
+          <h3 className="text-xl font-bold mb-2">{t("teamwork") || "Teamwork"}</h3>
+          <p className="text-gray-600 dark:text-gray-300">{t("teamworkDesc")}</p>
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* Our Story Section */}
+        <motion.section
+          className="py-16 bg-blue-50 dark:bg-gray-800"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUpVariants}
+        >
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">
+              {t("ourStoryTitle") || "Our Story"}
+            </h2>
+            <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+              {t("ourStoryP1")}
+            </p>
+            <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                    {t("ourStoryP2")}
+                  </p>
+            <AnimatePresence>
+              {showMore && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                    {t("ourStoryP3")}
+                  </p>
+                  <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                    {t("ourStoryP4")}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <div className="text-center">
+              <motion.button
+                className="mt-2 px-6 py-2 bg-[#468e83] text-white rounded-lg font-semibold hover:bg-[#29534d] transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShowMore((v) => !v)}
+              >
+                {showMore
+                  ? t("showLess") || "Show Less"
+                  : t("showMore") || "Show More"}
+              </motion.button>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* Growth Timeline */}
+        <motion.section
+          className="py-16 bg-white dark:bg-gray-900"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUpVariants}
+        >
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white">
+              {t("growthTimelineTitle") || "Our Growth Timeline"}
+            </h2>
+            <div className="space-y-8">
+              <motion.div variants={fadeUpVariants} className="flex items-start gap-4">
+                <div className="text-2xl font-bold text-[#468e83] min-w-[80px]">{t("today") || "Today"}</div>
+                <div>
+                  <h4 className="font-semibold">{t("timeline2025Title")}</h4>
+                  <p className="text-gray-700 dark:text-gray-300">{t("timeline2025Desc")}</p>
+                </div>
+              </motion.div>
+              <motion.div variants={fadeUpVariants} className="flex items-start gap-4">
+                <div className="text-2xl font-bold text-[#468e83] min-w-[80px]">{t("today") || "Today"}</div>
+                <div>
+                  <h4 className="font-semibold">{t("timelineTodayTitle")}</h4>
+                  <p className="text-gray-700 dark:text-gray-300">{t("timelineTodayDesc")}</p>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* Meet Our Team */}
+        <motion.section
+          className="py-16 bg-blue-50 dark:bg-gray-800"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUpVariants}
+        >
+          <div className="container mx-auto px-4 max-w-5xl">
+            <h2 className="text-3xl font-bold mb-10 text-center text-gray-900 dark:text-white">
+              {t("meetOurTeam") || "Meet Our Team"}
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              {teamMembers.map((member, index) => (
+            <motion.div
+            key={index}
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-105"
+            variants={{
+              hidden: { opacity: 0, scale: 0.8 },
+              visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+            }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.05 }}
+          >
+            <div className="h-64 overflow-hidden">
+              <img
+                src={member.image}
+                alt={t("ourTeamImageAlt") || "Team member"}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6">
+              <h3 className="text-xl font-bold mb-1">
+                {t(member.nameKey)}
+              </h3>
+              <div className="text-[#468e83] font-semibold mb-2">
+                {t(member.roleKey)}
+              </div>
+              <p className="text-gray-700 dark:text-gray-300 mb-4">
+                {t(member.descKey)}
               </p>
             </div>
-          </div>
-        </section>
-
-        {/* Mission & Vision */}
-        <section className="py-16 bg-white dark:bg-gray-900">
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="order-2 md:order-1">
-                <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-                  Our Mission & Vision
-                </h2>
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
-                  At YEUNG THOTT, our mission is to deliver exceptional results
-                  that exceed expectations. We are committed to innovation,
-                  quality, and customer satisfaction in everything we do.
-                </p>
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
-                  Our vision is to become a leading team recognized for our
-                  expertise, reliability, and the positive impact we make for
-                  our clients and community.
-                </p>
-                <div className="grid grid-cols-2 gap-4 mt-8">
-                  <div className="bg-blue-50 dark:bg-gray-800 p-4 rounded-lg">
-                    <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">
-                      Excellence
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">
-                      We strive for excellence in all our endeavors
-                    </p>
-                  </div>
-                  <div className="bg-blue-50 dark:bg-gray-800 p-4 rounded-lg">
-                    <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">
-                      Innovation
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">
-                      We embrace creative solutions and new ideas
-                    </p>
-                  </div>
-                  <div className="bg-blue-50 dark:bg-gray-800 p-4 rounded-lg">
-                    <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">
-                      Integrity
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">
-                      We act with honesty and transparency
-                    </p>
-                  </div>
-                  <div className="bg-blue-50 dark:bg-gray-800 p-4 rounded-lg">
-                    <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">
-                      Teamwork
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">
-                      We collaborate to achieve common goals
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="order-1 md:order-2">
-                <div className="relative rounded-xl overflow-hidden shadow-xl">
-                  <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur-lg opacity-20 animate-pulse"></div>
-                  <Image
-                    src="https://i.imgur.com/rpLidJF.png"
-                    alt="Our Team"
-                    width={700}
-                    height={500}
-                    className="w-full h-auto rounded-xl relative z-10"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Our Story */}
-        <section className="py-16 bg-gray-50 dark:bg-gray-800">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">
-                Our Story
-              </h2>
-              <div className="space-y-6 text-gray-600 dark:text-gray-300">
-                <p>
-                  Founded with a vision to make a difference, YEUNG THOTT has
-                  grown from a small team to a thriving organization. We believe
-                  in the power of collaboration, creativity, and commitment.
-                </p>
-                <p>
-                  Our journey began with a simple idea: to create a team that
-                  combines expertise with passion. Over the years, we've
-                  expanded our capabilities while staying true to our core
-                  values.
-                </p>
-                <p>
-                  Today, we're proud to serve clients across various sectors,
-                  bringing our unique approach and dedication to every project
-                  we undertake.
-                </p>
-              </div>
-
-              <div className="mt-12">
-                <h3 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">
-                  Our Growth Timeline
-                </h3>
-                <div className="space-y-8">
-                  <div className="flex">
-                    <div className="flex flex-col items-center mr-4">
-                      <div className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full"></div>
-                      <div className="h-full w-0.5 bg-blue-600 dark:bg-blue-400 opacity-30"></div>
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
-                        2018: The Beginning
-                      </h4>
-                      <p className="text-gray-600 dark:text-gray-300 mt-2">
-                        YEUNG THOTT was founded with a small team of dedicated
-                        professionals.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <div className="flex flex-col items-center mr-4">
-                      <div className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full"></div>
-                      <div className="h-full w-0.5 bg-blue-600 dark:bg-blue-400 opacity-30"></div>
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
-                        2020: Expansion
-                      </h4>
-                      <p className="text-gray-600 dark:text-gray-300 mt-2">
-                        We expanded our team and services to meet growing
-                        demand.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <div className="flex flex-col items-center mr-4">
-                      <div className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full"></div>
-                      <div className="h-full w-0.5 bg-blue-600 dark:bg-blue-400 opacity-30"></div>
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
-                        2022: Innovation
-                      </h4>
-                      <p className="text-gray-600 dark:text-gray-300 mt-2">
-                        We introduced new innovative approaches and technologies
-                        to our work.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <div className="flex flex-col items-center mr-4">
-                      <div className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full"></div>
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
-                        Today: Looking Forward
-                      </h4>
-                      <p className="text-gray-600 dark:text-gray-300 mt-2">
-                        We continue to grow and evolve, always focused on
-                        delivering excellence.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Team Members */}
-        <section className="py-16 bg-white dark:bg-gray-900">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">
-              Meet Our Team
-            </h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  name: "Uth David",
-                  role: "Team Leader",
-                  image:
-                    "https://i.imgur.com/nUBvrcG.jpeg",
-                },
-                {
-                  name: "Torn Visal",
-                  role: "Senior Member",
-                  image:
-                    "https://i.imgur.com/Gutk4Oa.jpeg",
-                },
-              ].map((member, index) => (
-                <div
-                  key={index}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-105"
-                >
-                  <div className="h-64 overflow-hidden">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      width={400}
-                      height={400}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-1 text-gray-900 dark:text-white">
-                      {member.name}
-                    </h3>
-                    <p className="text-blue-600 dark:text-blue-400 mb-4">
-                      {member.role}
-                    </p>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Dedicated professional with expertise in their field,
-                      committed to delivering exceptional results.
-                    </p>
-                  </div>
-                </div>
+          </motion.div>
               ))}
             </div>
           </div>
-        </section>
+        </motion.section>
       </main>
 
       <Footer />

@@ -38,6 +38,7 @@ type TranslationKey =
   | "termsOfService"
   | "allRightsReserved"
   | "showMore"
+  | "showLess"
   | "loading"
   | "all"
   | "projects"
@@ -63,7 +64,42 @@ type TranslationKey =
   | "prompt"
   | "likes"
   | "comments"
-  | "shares";
+  | "shares"
+  | "missionVisionTitle"
+  | "missionText"
+  | "visionText"
+  | "excellence"
+  | "excellenceDesc"
+  | "innovation"
+  | "innovationDesc"
+  | "integrity"
+  | "integrityDesc"
+  | "teamwork"
+  | "teamworkDesc"
+  | "ourTeamImageAlt"
+  | "ourStoryTitle"
+  | "ourStoryP1"
+  | "ourStoryP2"
+  | "ourStoryP3"
+  | "ourStoryP4"
+  | "growthTimelineTitle"
+  | "today"
+  | "2025"
+  | "timeline2025Title"
+  | "timeline2025Desc"
+  | "timeline2020Title"
+  | "timeline2020Desc"
+  | "timeline2022Title"
+  | "timeline2022Desc"
+  | "timelineTodayTitle"
+  | "timelineTodayDesc"
+  | "meetOurTeam"
+  | "member1Name"
+  | "member1Role"
+  | "member1Desc"
+  | "member2Name"
+  | "member2Role"
+  | "member2Desc";
 
 type Translations = {
   [key in Language]: {
@@ -81,7 +117,7 @@ export const translations: Translations = {
     contact: "Contact",
     welcomeTitle: "WELCOME TO YEUNG THOTT",
     welcomeSubtitle:
-      "A professional team dedicated to excellence and innovation. Discover our services and see how we can help you achieve your goals.",
+      "We're a passionate team of beginners, eager to learn and grow. Explore our journey and see how we're working hard to turn ideas into reality.",
     contactUs: "Contact Us",
     learnMore: "Learn More",
     professionalService: "Professional Service",
@@ -89,7 +125,7 @@ export const translations: Translations = {
     bilingualSupport: "Bilingual Support",
     aboutTitle: "About Us",
     aboutSubtitle:
-      "We are a dedicated team committed to excellence and innovation in everything we do. Our mission is to deliver exceptional results that exceed expectations.",
+      "We are a group of beginners who are passionate about learning and growing. Even though we’re just starting out, we’re committed to doing our best and making great things together.",
     ourStory: "Our Story",
     readMore: "Read More",
     whatWeOffer: "What We Offer",
@@ -99,7 +135,7 @@ export const translations: Translations = {
     viewFullGallery: "View Full Gallery",
     latestUpdates: "Latest Updates",
     updatesSubtitle:
-      "Stay connected with our latest news and updates from our Facebook page.",
+      "Stay in touch with us! Follow our Facebook page for the latest news and updates.",
     visitFacebook: "Visit Our Facebook Page",
     getInTouch: "Get In Touch",
     contactSubtitle:
@@ -115,6 +151,7 @@ export const translations: Translations = {
     termsOfService: "Terms of Service",
     allRightsReserved: "All rights reserved.",
     showMore: "Show More",
+    showLess: "Show Less",
     loading: "Loading...",
     all: "All",
     projects: "Projects",
@@ -129,24 +166,59 @@ export const translations: Translations = {
     clearCommunication: "Clear Communication",
     creativeSolutions: "Creative Solutions",
     professionalServiceDescription: 
-      "We provide high-quality services tailored to meet client needs.",
+      "We do our best to offer great services that match what our clients need.",
     teamCollaborationDescription:
-      "Our team works together seamlessly to ensure the best results for our clients.",
+      "We always work together and help each other to get the best results.",
     fastDeliveryDescription:   
-      "We pride ourselves on delivering projects on time without compromising quality.",
+      "We try our best to finish projects on time, while still keeping the quality high.",
     qualityAssuranceDescription:  
-        "We implement strict quality control measures to ensure the highest standards.",
+        "We carefully check our work to make sure everything is done well.",
     clearCommunicationDescription:
-      "We maintain open lines of communication with our clients to ensure clarity and understanding.",
+      "We talk clearly and openly with our clients so everyone understands each other.",
     creativeSolutionsDescription:
-      "We approach every project with creativity and innovation, finding unique solutions to challenges.",
-    foundedWithVision: "Founded with a vision to make a difference, YEUNG THOTT has grown from a small team to a thriving organization. We believe in the power of collaboration, creativity, and commitment.",
-    diverseTalents: "Our team brings together diverse talents and perspectives, united by a shared passion for excellence and innovation.",
-    comprehensiveRange: "Explore our comprehensive range of services tailored to meet your needs and exceed expectations.",
+      "We use creative thinking to find new and smart ways to solve problems.",
+    foundedWithVision: "YEUNG THOTT started as a small group of friends with big dreams. At first, we didn’t have much—just our passion, curiosity, and the hope that we could create something meaningful. We didn’t come from professional backgrounds, but we believed that with enough effort, anyone can learn, improve, and make a difference.",
+    diverseTalents: "At YEUNG THOTT, we welcome everyone with an open heart. We believe in growing together, helping one another, and building a future filled with hope, innovation, and positive change. Our story is just beginning, and we’re excited for what lies ahead.",
+    comprehensiveRange: "Take a look at all the services we offer. We’ve created them to fit your needs and hopefully give you even more than you expected.",
     prompt: "Preserving life’s most beautiful moments through the lens. Let’s turn your memories into timeless art.📸🍃",
     likes: "Likes",
     comments: "Comments",
     shares: "Shares",
+    missionVisionTitle: "Our Mission & Vision",
+    missionText: "At YEUNG THOTT, our mission is to do our best and create great results that make our clients happy. We always focus on new ideas, good quality, and making sure people are satisfied with our work.",
+    visionText: "We hope to become a well-known and trusted team. We want people to know us for our hard work, creative thinking, and the good things we bring to our clients and our community.",
+    excellence: "Excellence",
+    excellenceDesc: "We always try to do our best in everything we do.",
+    innovation: "Innovation",
+    innovationDesc: "We like to try new ideas and find smart, creative solutions.",
+    integrity: "Integrity",
+    integrityDesc: "We are honest and open in the way we work.",
+    teamwork: "Teamwork",
+    teamworkDesc: "We work together and help each other to reach our goals.",
+    ourTeamImageAlt: "Our Team",
+    ourStoryTitle: "Our Story",
+    ourStoryP1: "YEUNG THOTT started as a small group of friends with big dreams. At first, we didn’t have much—just our passion, curiosity, and the hope that we could create something meaningful. We didn’t come from professional backgrounds, but we believed that with enough effort, anyone can learn, improve, and make a difference.",
+    ourStoryP2: "In the beginning, we faced many challenges. We made mistakes, learned new skills, and supported each other through every step. Slowly, our small team started to grow, and so did our vision. What began as a simple idea has now become a journey we are truly proud of.",
+    ourStoryP3: "We believe that teamwork, creativity, and dedication can build something special. That’s why we always push ourselves to be better every day. Even though we’re still beginners in many ways, we are passionate learners, and we are not afraid to take risks or try new things.",
+    ourStoryP4: "At YEUNG THOTT, we welcome everyone with an open heart. We believe in growing together, helping one another, and building a future filled with hope, innovation, and positive change. Our story is just beginning, and we’re excited for what lies ahead.",
+    growthTimelineTitle: "Our Growth Timeline",
+    today: "Today",
+    2025: "2025",
+    timeline2025Title: "2025: The Beginning",
+    timeline2025Desc: "YEUNG THOTT was founded with a small team of dedicated professionals, starting on January 21, 2025.",
+    timeline2020Title: "2020: Expansion",
+    timeline2020Desc: "We expanded our team and services to meet growing demand.",
+    timeline2022Title: "2022: Innovation",
+    timeline2022Desc: "We introduced new innovative approaches and technologies to our work.",
+    timelineTodayTitle: "Today: Looking Forward",
+    timelineTodayDesc: "We continue to grow and evolve, always focused on delivering excellence.",
+    meetOurTeam: "Meet Our Team",
+    member1Name: "Uth David",
+    member1Role: "Photographer & Color Grader",
+    member1Desc: "Uth David is a passionate professional with expertise in photography and color grading. His dedication to creativity and precision allows him to deliver exceptional visual results. With a strong eye for detail, he plays a key role in producing high-quality, innovative work.",
+    member2Name: "Torn Visal",
+    member2Role: "Social Media Manager",
+    member2Desc: "Torn Visal is a dedicated individual in the early stages of his career, managing the Facebook page and website. He posts Uth David's stunning photography, ensuring the team's work reaches a wider audience. Torn is focused on learning and growing, maintaining an active online presence.",
   },
   km: {
     nameweb: "យើងថត",
@@ -157,7 +229,7 @@ export const translations: Translations = {
     contact: "ទំនាក់ទំនង",
     welcomeTitle: "សូមស្វាគមន៍មកកាន់ YEUNG THOTT",
     welcomeSubtitle:
-      "ក្រុមអ្នកជំនាញដែលប្តេជ្ញាចិត្តចំពោះភាពឧត្តមនិងនវានុវត្តន៍។ ស្វែងយល់ពីសេវាកម្មរបស់យើងហើយមើលថាតើយើងអាចជួយអ្នកសម្រេចគោលដៅរបស់អ្នកយ៉ាងដូចម្តេច។",
+      "ពួកយើងគឺជាក្រុមដ៏ស្មោះត្រង់នៃអ្នកចាប់ផ្ដើមដែលពេញដោយក្តីស្រមៃ និងការខិតខំប្រឹងប្រែង។ សូមរុករកដំណើររបស់ពួកយើង ហើយមើលថាពួកយើងកំពុងបំផ្លាញគំនិតទៅជាការពិតយ៉ាងដូចម្តេច។",
     contactUs: "ទាក់ទងមកយើង",
     learnMore: "ស្វែងយល់បន្ថែម",
     professionalService: "សេវាកម្មជំនាញ",
@@ -165,7 +237,7 @@ export const translations: Translations = {
     bilingualSupport: "ការគាំទ្រពីរភាសា",
     aboutTitle: "អំពីពួកយើង",
     aboutSubtitle:
-      "យើងជាក្រុមដែលប្តេជ្ញាចិត្តចំពោះភាពឧត្តមនិងនវានុវត្តន៍ក្នុងអ្វីគ្រប់យ៉ាងដែលយើងធ្វើ។ បេសកកម្មរបស់យើងគឺផ្តល់លទ្ធផលដ៏អស្ចារ្យដែលលើសពីការរំពឹងទុក។",
+      "ពួកយើងគឺជាក្រុមអ្នកចាប់ផ្ដើមដែលមានចិត្តស្រឡាញ់ក្នុងការស្វែងយល់ និងអភិវឌ្ឍខ្លួនឯង។ ទោះបីជាពួកយើងទើបចាប់ផ្ដើមក៏ដោយ ពួកយើងក៏សង្ឃឹមថានឹងធ្វើអោយបានល្អបំផុត និងបង្កើតអ្វីថ្មីៗជាមួយគ្នា។",
     ourStory: "រឿងរ៉ាវរបស់យើង",
     readMore: "អានបន្ថែម",
     whatWeOffer: "អ្វីដែលយើងផ្តល់ជូន",
@@ -175,7 +247,7 @@ export const translations: Translations = {
     viewFullGallery: "មើលវិចិត្រសាលទាំងមូល",
     latestUpdates: "ព័ត៌មានថ្មីៗបំផុត",
     updatesSubtitle:
-      "បន្តភ្ជាប់ទំនាក់ទំនងជាមួយព័ត៌មាននិងការធ្វើបច្ចុប្បន្នភាពចុងក្រោយបំផុតពីទំព័រហ្វេសប៊ុករបស់យើង។",
+      "តាមដានព័ត៌មានថ្មីៗ និងការអាប់ដេតពីយើងតាមរយៈទំព័រហ្វេសប៊ុករបស់យើង។",
     visitFacebook: "ទស្សនាទំព័រហ្វេសប៊ុករបស់យើង",
     getInTouch: "ទាក់ទងមកយើង",
     contactSubtitle:
@@ -191,6 +263,7 @@ export const translations: Translations = {
     termsOfService: "លក្ខខណ្ឌនៃសេវាកម្ម",
     allRightsReserved: "រក្សាសិទ្ធិគ្រប់យ៉ាង។",
     showMore: "បង្ហាញបន្ថែម",
+    showLess: "បង្ហាញតិចជាងនេះ",
     loading: "កំពុងផ្ទុក...",
     all: "ទាំងអស់",
     projects: "គម្រោង",
@@ -205,28 +278,63 @@ export const translations: Translations = {
     clearCommunication: "ការទំនាក់ទំនងច្បាស់លាស់",
     creativeSolutions: "ដំណោះស្រាយច្នៃប្រឌិត",
     professionalServiceDescription:
-      "យើងផ្តល់ជូននូវសេវាកម្មដែលមានជំនាញខ្ពស់ដែលបំពេញតាមតម្រូវការរបស់អតិថិជន។",
+      "ពួកយើងខិតខំផ្តល់សេវាកម្មល្អៗដែលសមរម្យនឹងតំរូវការរបស់អតិថិជន។",
     teamCollaborationDescription:
-      "ក្រុមរបស់យើងធ្វើការជាមួយគ្នាដោយរលូនដើម្បីធានាថាលទ្ធផលល្អបំផុតសម្រាប់អតិថិជន។",
+      "ក្រុមរបស់យើងធ្វើការរួមគ្នាដោយសាមគ្គី ដើម្បីឱ្យបានលទ្ធផលល្អបំផុតសម្រាប់អតិថិជន។",
     fastDeliveryDescription:
-      "យើងមានមោទនភាពក្នុងការដឹកជញ្ជូនគម្រោងនៅពេលវេលាដោយមិនប៉ះពាល់ដល់គុណភាព។",
+      "ពួកយើងមានមោទនភាពក្នុងការសម្រេចគម្រោងឱ្យទាន់ពេលវេលា ដោយមិនបាត់បង់គុណភាពឡើយ។",
     qualityAssuranceDescription:
-      "យើងអនុវត្តវិធានការត្រួតពិនិត្យគុណភាពយ៉ាងតឹងរឹងដើម្បីធានាថាមានស្តង់ដាខ្ពស់បំផុត។",
+      "ពួកយើងមានការត្រួតពិនិត្យគុណភាពយ៉ាងម៉ឹងម៉ាត់ ដើម្បីធានាថាសេវាកម្មមានគុណភាពខ្ពស់។",
     clearCommunicationDescription:
-      "យើងរក្សាទំនាក់ទំនងបើកចំហជាមួយអតិថិជនរបស់យើងដើម្បីធានាថាមានភាពច្បាស់លាស់និងការយល់ដឹង។",
+      "ពួកយើងរក្សាការទំនាក់ទំនងបើកចំហជាមួយអតិថិជន ដើម្បីឱ្យមានការយល់ដឹងគ្នាដោយច្បាស់។",
     creativeSolutionsDescription:
-      "យើងចូលរួមក្នុងគម្រោងនីមួយៗជាមួយភាពច្នៃប្រឌិតនិងនវានុវត្តន៍ ដើម្បីស្វែងរកដំណោះស្រាយដ៏អស្ចារ្យសម្រាប់បញ្ហា។",
+      "ពួកយើងប្រើស្នាដៃច្នៃប្រឌិតក្នុងគម្រោងទាំងអស់ ដើម្បីរកដំណោះស្រាយដែលខុសពីគេ។",
     foundedWithVision:
-      "បង្កើតឡើងដោយមានចក្ខុវិស័យដើម្បីធ្វើឱ្យមានភាពខុសប្លែក យើង ថត បានរីកចម្រើនពីក្រុមតូចមួយទៅជាអង្គការដែលរីកចម្រើន។ យើងជឿលើអំណាចនៃកិច្ចសហការភាពច្នៃប្រឌិតនិងការប្តេជ្ញាចិត្ត។",
+      "យើងថត ត្រូវបានបង្កើតឡើងដោយក្រុមមិត្តភក្តិតិចនាក់មួយដែលមានសុបិន្ដធំ។ ចាប់ផ្ដើមពីគ្មានអ្វីច្រើនទេ មានតែចំណង់ចំណូលចិត្ត ការចង់រៀន និងការស្រមៃថា ពួកយើងអាចបង្កើតអ្វីមួយមានអត្ថន័យបាន។ ទោះបីជាពួកយើងមិនមែនជាអ្នកមានបទពិសោធន៍វិជ្ជាជីវៈក៏ដោយ ប៉ុន្តែពួកយើងជឿថា ប្រសិនបើខិតខំគ្រប់គ្នាអាចរៀន និងអភិវឌ្ឍខ្លួនបាន។",
     diverseTalents:
-      "ក្រុមរបស់យើងបានប្រមូលផ្តុំទេពកោសល្យនិងទស្សនវិស័យផ្សេងៗគ្នា ដែលរួបរួមគ្នាដោយចំណង់ចំណូលចិត្តរួមសម្រាប់ភាពឧត្តមនិងនវានុវត្តន៍។",
+      "នៅ យើងថត ពួកយើងស្វាគមន៍គ្រប់គ្នាដោយបេះដូងបើកចំហ។ ពួកយើងជឿថាការលូតលាស់រួមគ្នា ការជួយស្របគ្នា និងការបង្កើតអនាគតដ៏ភ្លឺចាំងគឺជាភាពស្រស់ស្រាយនៃដំណើររបស់យើង។ រឿងរ៉ាវរបស់ពួកយើងទើបតែចាប់ផ្ដើម ហើយពួកយើងរីករាយក្នុងអនាគតមុខ។",
     comprehensiveRange:
-      "ស្វែងយល់ពីសេវាកម្មគ្រប់ជ្រុងជ្រោយរបស់យើងដែលត្រូវបានរចនាឡើងដើម្បីបំពេញតម្រូវការរបស់អ្នកនិងលើសពីការរំពឹងទុករបស់អ្នក។",
+      "សូមស្វែងរកសេវាកម្មនានារបស់យើងដែលត្រូវបានរៀបចំឡើងដើម្បីបំពេញតំរូវការរបស់អ្នក និងផ្តល់អ្វីៗល្អជាងដែលអ្នករំពឹងទុក។",
     prompt:
       "រក្សាទុកពេលវេលាដ៏ស្រស់ស្អាតបំផុតរបស់ជីវិតតាមរយៈកញ្ចក់។ យើងមកដល់ដើម្បីបំលែងអនុស្សាវរីយ៍របស់អ្នកឱ្យទៅជាសិល្បៈដែលគ្មានកាលកំណត់។📸🍃",
     likes: "ចូលចិត្ត",
     comments: "មតិ",
     shares: "ចែករំលែក",
+    missionVisionTitle: "បេសកកម្ម និងចក្ខុវិស័យរបស់យើង",
+    missionText: "នៅ យើងថត បេសកកម្មរបស់យើងគឺខិតខំធ្វើអោយបានល្អបំផុត និងបង្កើតលទ្ធផលល្អៗ ដែលអាចឆ្លងលើសពីការរំពឹងទុក។ ពួកយើងផ្តោតលើគំនិតថ្មីៗ គុណភាព និងការពេញចិត្តរបស់អតិថិជននៅក្នុងអ្វីៗគ្រប់យ៉ាង។",
+    visionText: "ចក្ខុវិស័យរបស់យើងគឺក្លាយជាក្រុមដែលគេជឿជាក់ និងស្គាល់យ៉ាងល្អ។ ពួកយើងចង់ឱ្យមនុស្សស្គាល់យើងដោយសារការខិតខំ អត្ថិភាព និងអ្វីល្អៗដែលយើងធ្វើសម្រាប់អតិថិជន និងសហគមន៍។",
+    excellence: "ភាពឧត្តម",
+    excellenceDesc: "ពួកយើងតែងតែខិតខំធ្វើអោយបានល្អបំផុតក្នុងអ្វីៗទាំងអស់។",
+    innovation: "នវានុវត្តន៍",
+    innovationDesc: "ពួកយើងចូលចិត្តសាកល្បងគំនិតថ្មីៗ និងរកដំណោះស្រាយច្នៃប្រឌិត។",
+    integrity: "ភាពស្មោះត្រង់",
+    integrityDesc: "ពួកយើងធ្វើការជាមួយភាពស្មោះត្រង់ និងបើកចំហ។",
+    teamwork: "ការធ្វើការជាក្រុម",
+    teamworkDesc: "ពួកយើងធ្វើការជាក្រុម និងជួយគ្នាដើម្បីសម្រេចគោលបំណងរួម។",
+    ourTeamImageAlt: "ក្រុមរបស់យើង",
+    ourStoryTitle: "រឿងរ៉ាវរបស់យើង",
+    ourStoryP1: "យើងថត ត្រូវបានបង្កើតឡើងដោយក្រុមមិត្តភក្តិតិចនាក់មួយដែលមានសុបិន្ដធំ។ ចាប់ផ្ដើមពីគ្មានអ្វីច្រើនទេ មានតែចំណង់ចំណូលចិត្ត ការចង់រៀន និងការស្រមៃថា ពួកយើងអាចបង្កើតអ្វីមួយមានអត្ថន័យបាន។ ទោះបីជាពួកយើងមិនមែនជាអ្នកមានបទពិសោធន៍វិជ្ជាជីវៈក៏ដោយ ប៉ុន្តែពួកយើងជឿថា ប្រសិនបើខិតខំគ្រប់គ្នាអាចរៀន និងអភិវឌ្ឍខ្លួនបាន។",
+    ourStoryP2: "នៅដំណាក់កាលដំបូង ពួកយើងបានជួបបញ្ហាច្រើន។ ធ្វើខុសៗ រៀនចំណេះដឹងថ្មីៗ និងជួយគាំទ្រនឹងគ្នាទាំងអស់។ បន្តិចម្តងៗ ក្រុមតូចៗរបស់យើងចាប់ផ្ដើមរីកចម្រើន ហើយចក្ខុវិស័យក៏ធំធេងឡើងផងដែរ។ អ្វីដែលចាប់ផ្ដើមជាគំនិតតិចតួចឥឡូវនេះបានក្លាយជាដំណើរដែលពោរពេញដោយមោទនភាព។",
+    ourStoryP3: "ពួកយើងជឿជាក់លើអាទិភាពនៃការធ្វើការជាក្រុម ការច្នៃប្រឌិត និងការខិតខំ។ ពួកយើងតែងតែខិតខំអោយខ្លួនប្រសើរឡើងជារៀងរាល់ថ្ងៃ។ ទោះបីជាពួកយើងនៅតែជាអ្នកចាប់ផ្ដើមក្នុងខ្លះៗក៏ដោយ ប៉ុន្តែពួកយើងជាអ្នកចង់រៀន និងមិនខ្លាចក្នុងការសាកល្បងអ្វីថ្មីៗឡើយ។",
+    ourStoryP4: "នៅ យើងថត ពួកយើងស្វាគមន៍គ្រប់គ្នាដោយបេះដូងបើកចំហ។ ពួកយើងជឿថាការលូតលាស់រួមគ្នា ការជួយស្របគ្នា និងការបង្កើតអនាគតដ៏ភ្លឺចាំងគឺជាភាពស្រស់ស្រាយនៃដំណើររបស់យើង។ រឿងរ៉ាវរបស់ពួកយើងទើបតែចាប់ផ្ដើម ហើយពួកយើងរីករាយក្នុងអនាគតមុខ។",
+    growthTimelineTitle: "កំណត់ពេលវេលាកំណើនរបស់យើង",
+    today: "ថ្ងៃនេះ",
+    2025: "២០២៥",
+    timeline2025Title: "២០២៥៖ ការចាប់ផ្តើម",
+    timeline2025Desc: "យើងថត ត្រូវបានបង្កើតឡើងដោយក្រុមតូចមួយនៃអ្នកជំនាញដែលមានចិត្តស្មោះត្រង់ នៅថ្ងៃទី ២១ ខែមករា ឆ្នាំ ២០២៥។",
+    timeline2020Title: "២០២០៖ ការពង្រីក",
+    timeline2020Desc: "យើងបានពង្រីកក្រុម និងសេវាកម្មរបស់យើងដើម្បីបំពេញតម្រូវការកាន់តែច្រើន។",
+    timeline2022Title: "២០២២៖ នវានុវត្តន៍",
+    timeline2022Desc: "យើងបានណែនាំវិធីសាស្រ្ត និងបច្ចេកវិទ្យាថ្មីៗដល់ការងាររបស់យើង។",
+    timelineTodayTitle: "ថ្ងៃនេះ៖ មើលទៅមុខ",
+    timelineTodayDesc: "ពួកយើងបន្តលូតលាស់ និងអភិវឌ្ឍ តែងតែផ្តោតលើការផ្តល់លទ្ធផលល្អបំផុត។",
+    meetOurTeam: "ស្គាល់ក្រុមរបស់យើង",
+    member1Name: "អ៊ុត ដាវីត",
+    member1Role: "អ្នកថតរូប និងអ្នកធ្វើក្រុមពណ៌",
+    member1Desc: "អ៊ុត ដាវីត គឺជាអ្នកជំនាញមានចិត្តស្មោះត្រង់ក្នុងវិស័យថតរូប និងការកែពណ៌។ ការខិតខំរបស់គាត់ក្នុងការច្នៃប្រឌិត និងភាពត្រឹមត្រូវអនុញ្ញាតឱ្យគាត់ផ្តល់លទ្ធផលវិចិត្រសិល្ប៍ល្អឥតខ្ចោះ។ មានការយល់ឃើញច្បាស់ពីលម្អិត គាត់មានតួនាទីសំខាន់ក្នុងការផ្តល់ការងារដែលមានគុណភាពខ្ពស់ និងច្នៃប្រឌិត។",
+    member2Name: "ទន វិសាល",
+    member2Role: "អ្នកគ្រប់គ្រងទំព័រ និងអ្នកបង្កើតមាតិកា",
+    member2Desc: "ទន វិសាល គឺជាអ្នកមានចិត្តស្មោះត្រង់ និងកំពុងសเรียนនៅដំណាក់កាលដំបូងនៃអាជីពរបស់គាត់ក្នុងការគ្រប់គ្រងទំព័រហ្វេសប៊ុក និងគេហទំព័រ។ គាត់បង្ហោះរូបភាពដ៏ស្រស់ស្អាតរបស់ អ៊ុត ដាវីត ដើម្បីធានាថាការងាររបស់ក្រុមបានឈានទៅកាន់អ្នកទស្សនាកាន់តែមានអារម្មណ៍។ Torn គឺផ្តោតលើការស្វែងរក និងការលូតលាស់ នៅក្នុងការរក្សាទំនាក់ទំនងអនឡាញសកម្ម។",
   },
 };
 
