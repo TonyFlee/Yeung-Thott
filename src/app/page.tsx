@@ -179,13 +179,13 @@ export default function Home() {
         ].map((service, index) => (
           <motion.div
             key={index}
-            className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
+            className="p-6 dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-shadow"
             variants={fadeUpVariants}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <div className="text-[#468e83] mb-4">{service.icon}</div>
-            <h3 className="text-xl font-semibold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#000000] to-[#e3e7d7]">
+            <h3 className="text-xl font-semibold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#000000] to-[#468e83] dark:from-[#e3e7d7] dark:to-[#468e83]">
           {service.title}
             </h3>
             <p className="text-gray-600">{service.description}</p>
@@ -211,9 +211,9 @@ export default function Home() {
         animate="visible"
         variants={fadeInVariants}
           >
-        <h2 className="text-3xl font-bold mb-4">Latest Updates</h2>
+        <h2 className="text-3xl font-bold mb-4">{t("latestUpdates")}</h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Stay connected with our latest news and updates from our Facebook page.
+          {t("updatesSubtitle") || "Stay updated with our latest news and events."}
         </p>
           </motion.div>
 
@@ -229,21 +229,21 @@ export default function Home() {
           {
             id: 2,
             imageUrl: "https://i.imgur.com/aHY2An2.jpeg",
-            description: "អបអរសាទរឆ្នាំថ្មីខ្មែរ ការរៀបចំសង្ក្រាន្តកំពង់ធំ #យើងថត #YeungThott",
+            description: "អបអរសាទរឆ្នាំថ្មីខ្មែរ ការរៀបចំសង្ក្រាន្តនៅក្នុងកំពង់ធំ #យើងថត #YeungThott",
             date: "2023-09-28",
             href: "https://www.facebook.com/share/p/1AfxR9qqQB/",
           },
           {
             id: 3,
             imageUrl: "https://i.imgur.com/1WKDiWf.jpeg",
-            description: "សង្ក្រាន្តកំពង់ធំ ការប្រារព្ធពិធី ស្រង់ព្រះពូនភ្នំខ្សាច់ #យើងថត #YeungThott",
+            description: "សង្ក្រាន្តខេត្តកំពង់ធំ ការប្រារព្ធពិធី ស្រង់ព្រះពូនភ្នំខ្សាច់ #យើងថត #YeungThott",
             date: "2023-09-25",
             href: "https://www.facebook.com/share/p/1AnQ9MrL1c/",
           },
         ].map((post) => (
           <motion.div
             key={post.id}
-            className="bg-white rounded-xl shadow-md overflow-hidden"
+            className="dark:bg-gray-800 rounded-xl shadow-md overflow-hidden"
             variants={fadeUpVariants}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -254,7 +254,7 @@ export default function Home() {
               <Facebook className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#000000] to-[#468e83]">
+              <h4 className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#000000] to-[#468e83] dark:from-[#e3e7d7] dark:to-[#468e83]">
               យើងថត • Yeung Thott 
               </h4>
               <p className="text-xs text-gray-500">
@@ -293,7 +293,7 @@ export default function Home() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Read More
+              {t("readMore")}
             </motion.a>
           </div>
             </div>
@@ -315,112 +315,10 @@ export default function Home() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          Visit Our Facebook Page
+          {t("visitFacebook") ||
+          "Visit our Facebook Page"}
           <ArrowUpRight className="ml-2 w-4 h-4" />
         </motion.a>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Contact Section */}
-      <motion.section
-        id="contact"
-        className="py-24 bg-white dark:bg-gray-800"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeUpVariants}
-      >
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="text-center mb-16"
-            initial="hidden"
-            animate="visible"
-            variants={fadeInVariants}
-          >
-            <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Have questions or want to work with us? Reach out and we'll get back to
-              you as soon as possible.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUpVariants}
-          >
-            <div className="md:flex">
-              <motion.div
-                className="md:w-1/3 bg-[#468e83] text-white p-6"
-                variants={fadeUpVariants}
-              >
-                <h3 className="text-xl font-bold mb-4">Contact Info</h3>
-                <div className="space-y-4">
-                  <p>123 Main Street</p>
-                  <p>Phnom Penh, Cambodia</p>
-                  <p>yeungthott@gmail.com</p>
-                  <p>+855 69 895 443</p>
-                </div>
-              </motion.div>
-              <motion.div
-                className="md:w-2/3 p-6"
-                initial="hidden"
-                animate="visible"
-                variants={fadeInVariants}
-              >
-                <form className="space-y-4">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <motion.div variants={fadeUpVariants}>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#468e83]"
-                      />
-                    </motion.div>
-                    <motion.div variants={fadeUpVariants}>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#468e83]"
-                      />
-                    </motion.div>
-                  </div>
-                  <motion.div variants={fadeUpVariants}>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Subject
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#468e83]"
-                    />
-                  </motion.div>
-                  <motion.div variants={fadeUpVariants}>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Message
-                    </label>
-                    <textarea
-                      rows={4}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#468e83]"
-                    ></textarea>
-                  </motion.div>
-                  <motion.button
-                    type="submit"
-                    className="w-full px-6 py-3 text-white bg-[#468e83] rounded-lg hover:bg-[#29534d] transition-colors"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Send Message
-                  </motion.button>
-                </form>
-              </motion.div>
-            </div>
           </motion.div>
         </div>
       </motion.section>

@@ -57,7 +57,7 @@ export default function Hero() {
                   whileTap={{ scale: 0.95 }} // Tap effect
                 >
                   <Link
-                    href="/#contact"
+                    href="contact"
                     className="inline-flex items-center px-8 py-4 text-white bg-[#468e83] rounded-lg hover:bg-[#468e83]/90 transition-colors text-lg font-medium"
                   >
                     {t("contactUs")}

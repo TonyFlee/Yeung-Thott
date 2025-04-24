@@ -31,13 +31,19 @@ export default function LanguageSwitcher() {
         className="animate-in fade-in-80 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
       >
         <DropdownMenuItem
-          onClick={() => setLanguage("en" as Language)}
+          onClick={() => {
+            localStorage.setItem("language", "en");
+            window.location.reload();
+          }}
           className="cursor-pointer transition-colors duration-200 hover:bg-[#468e83]/10"
         >
           English {language === "en" && "✓"}
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => setLanguage("km" as Language)}
+          onClick={() => {
+            localStorage.setItem("language", "km");
+            window.location.reload();
+          }}
           className="cursor-pointer transition-colors duration-200 hover:bg-[#468e83]/10"
         >
           ភាសាខ្មែរ (Khmer) {language === "km" && "✓"}

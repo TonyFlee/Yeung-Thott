@@ -89,7 +89,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="text-gray-600 dark:text-gray-400 hover:text-[#468e83] dark:hover:text-[#e3e7d7] transition-colors duration-300 inline-block relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#468e83] dark:after:bg-[#e3e7d7] after:left-0 after:-bottom-0.5 hover:after:w-full after:transition-all after:duration-300"
                 >
                   {t("contact")}
