@@ -131,59 +131,67 @@ export default function Home() {
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">{t("whatWeOffer")}</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t("comprehensiveRange") ||
-                "Discover our comprehensive range of services designed to meet your needs and exceed your expectations."}
-            </p>
+        <h2 className="text-3xl font-bold mb-4">{t("whatWeOffer")}</h2>
+        <p className="text-gray-600 max-w-2xl mx-auto">
+          {t("comprehensiveRange") ||
+            "Discover our comprehensive range of services designed to meet your needs and exceed your expectations."}
+        </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <Shield className="w-6 h-6" />,
-                title: t("professionalService"),
-                description: t("professionalServiceDescription"),
-              },
-              {
-                icon: <Users className="w-6 h-6" />,
-                title: t("teamCollaboration") || "Team Collaboration",
-                description: t("teamCollaborationDescription"),
-              },
-              {
-                icon: <Zap className="w-6 h-6" />,
-                title: t("fastDelivery") || "Fast Delivery",
-                description: t("fastDeliveryDescription"),
-              },
-              {
-                icon: <CheckCircle2 className="w-6 h-6" />,
-                title: t("qualityAssurance"),
-                description: t("qualityAssuranceDescription"),
-              },
-              {
-                icon: <MessageSquare className="w-6 h-6" />,
-                title: t("clearCommunication") || "Clear Communication",
-                description: t("clearCommunicationDescription"),
-              },
-              {
-                icon: <Camera className="w-6 h-6" />,
-                title: t("creativeSolutions") || "Creative Solutions",
-                description: t("creativeSolutionsDescription"),
-              },
-            ].map((service, index) => (
-              <motion.div
-                key={index}
-                className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
-                variants={fadeUpVariants}
-              >
-                <div className="text-[#468e83] mb-4">{service.icon}</div>
-                <h3 className="text-xl font-semibold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#000000] to-[#e3e7d7]">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600">{service.description}</p>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeUpVariants}
+          >
+        {[
+          {
+            icon: <Shield className="w-6 h-6" />,
+            title: t("professionalService"),
+            description: t("professionalServiceDescription"),
+          },
+          {
+            icon: <Users className="w-6 h-6" />,
+            title: t("teamCollaboration") || "Team Collaboration",
+            description: t("teamCollaborationDescription"),
+          },
+          {
+            icon: <Zap className="w-6 h-6" />,
+            title: t("fastDelivery") || "Fast Delivery",
+            description: t("fastDeliveryDescription"),
+          },
+          {
+            icon: <CheckCircle2 className="w-6 h-6" />,
+            title: t("qualityAssurance"),
+            description: t("qualityAssuranceDescription"),
+          },
+          {
+            icon: <MessageSquare className="w-6 h-6" />,
+            title: t("clearCommunication") || "Clear Communication",
+            description: t("clearCommunicationDescription"),
+          },
+          {
+            icon: <Camera className="w-6 h-6" />,
+            title: t("creativeSolutions") || "Creative Solutions",
+            description: t("creativeSolutionsDescription"),
+          },
+        ].map((service, index) => (
+          <motion.div
+            key={index}
+            className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
+            variants={fadeUpVariants}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <div className="text-[#468e83] mb-4">{service.icon}</div>
+            <h3 className="text-xl font-semibold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#000000] to-[#e3e7d7]">
+          {service.title}
+            </h3>
+            <p className="text-gray-600">{service.description}</p>
+          </motion.div>
+        ))}
+          </motion.div>
         </div>
       </motion.section>
 

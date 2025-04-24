@@ -40,7 +40,7 @@ export default function Footer() {
                 <Facebook className="h-6 w-6" />
               </motion.a>
                 <motion.a
-                href="yeung-thott.vercel.app"
+                href="/"
                 target="_blank"
                 className="text-[#468e83] hover:text-[#468e83]/80 dark:text-[#e3e7d7] dark:hover:text-[#e3e7d7]/80 transition-colors duration-300"
                 whileHover={{ scale: 1.1 }}
