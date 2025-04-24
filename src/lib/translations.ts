@@ -218,7 +218,7 @@ export const translations: Translations = {
     member1Desc: "Uth David is a passionate professional with expertise in photography and color grading. His dedication to creativity and precision allows him to deliver exceptional visual results. With a strong eye for detail, he plays a key role in producing high-quality, innovative work.",
     member2Name: "Torn Visal",
     member2Role: "Social Media Manager",
-    member2Desc: "Torn Visal is a dedicated individual in the early stages of his career, managing the Facebook page and website. He posts Uth David's stunning photography, ensuring the team's work reaches a wider audience. Torn is focused on learning and growing, maintaining an active online presence.",
+    member2Desc: "Torn Visal is a dedicated individual in the early stages of his career, managing the Facebook page and website. He posts Uth David's stunning photography, ensuring the team's work reaches a wider audience. And focused on learning and growing, maintaining an active online presence.",
   },
   km: {
     nameweb: "យើងថត",
