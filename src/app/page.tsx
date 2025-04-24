@@ -12,6 +12,7 @@ import {
   Shield,
   Users,
   Zap,
+  Facebook,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -186,10 +187,137 @@ export default function Home() {
         </div>
       </motion.section>
 
+      {/* Facebook Posts Section */}
+      <motion.section
+        id="facebook-posts"
+        className="py-24 bg-gray-50 dark:bg-gray-900"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeUpVariants}
+      >
+        <div className="container mx-auto px-4">
+          <motion.div
+        className="text-center mb-16"
+        initial="hidden"
+        animate="visible"
+        variants={fadeInVariants}
+          >
+        <h2 className="text-3xl font-bold mb-4">Latest Updates</h2>
+        <p className="text-gray-600 max-w-2xl mx-auto">
+          Stay connected with our latest news and updates from our Facebook page.
+        </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[
+          {
+            id: 1,
+            imageUrl: "https://i.imgur.com/tW2hYph.jpeg",
+            description: "វិចិត្រសាលធាម-Theam’s Gallery ក្នុងខេត្តសៀមរាប🖼️ #យើងថត #yeungThott",
+            date: "2023-10-01",
+            href: "https://www.facebook.com/share/p/1FSw3j1jEk/",
+          },
+          {
+            id: 2,
+            imageUrl: "https://i.imgur.com/aHY2An2.jpeg",
+            description: "អបអរសាទរឆ្នាំថ្មីខ្មែរ ការរៀបចំសង្ក្រាន្តកំពង់ធំ #យើងថត #YeungThott",
+            date: "2023-09-28",
+            href: "https://www.facebook.com/share/p/1AfxR9qqQB/",
+          },
+          {
+            id: 3,
+            imageUrl: "https://i.imgur.com/1WKDiWf.jpeg",
+            description: "សង្ក្រាន្តកំពង់ធំ ការប្រារព្ធពិធី ស្រង់ព្រះពូនភ្នំខ្សាច់ #យើងថត #YeungThott",
+            date: "2023-09-25",
+            href: "https://www.facebook.com/share/p/1AnQ9MrL1c/",
+          },
+        ].map((post) => (
+          <motion.div
+            key={post.id}
+            className="bg-white rounded-xl shadow-md overflow-hidden"
+            variants={fadeUpVariants}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <div className="p-6">
+          <div className="flex items-center mb-4">
+            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3">
+              <Facebook className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#000000] to-[#468e83]">
+              យើងថត • Yeung Thott 
+              </h4>
+              <p className="text-xs text-gray-500">
+            {new Date(post.date).toLocaleDateString()}
+              </p>
+            </div>
+          </div>
+          <p className="text-gray-600 mb-4">
+            {post.description.split(" ").map((word, index) =>
+              word.startsWith("#") ? (
+            <span
+              key={index}
+              className="text-blue-600 underline cursor-pointer"
+            >
+              {word}{" "}
+            </span>
+              ) : (
+            word + " "
+              )
+            )}
+          </p>
+          <motion.div
+            className="aspect-video bg-gray-100 rounded-lg mb-4 overflow-hidden"
+            whileHover={{ scale: 1.05 }}
+          >
+            <img
+              src={post.imageUrl}
+              alt="Facebook Post"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+          <div className="text-right">
+            <motion.a
+              href={post.href}
+              className="text-blue-600 underline cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Read More
+            </motion.a>
+          </div>
+            </div>
+          </motion.div>
+        ))}
+          </div>
+
+          <motion.div
+        className="text-center mt-12"
+        initial="hidden"
+        animate="visible"
+        variants={fadeInVariants}
+          >
+        <motion.a
+          href="https://facebook.com/yeungthott"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center px-6 py-3 text-white bg-[#468e83] rounded-lg hover:bg-[#32645d] transition-colors"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Visit Our Facebook Page
+          <ArrowUpRight className="ml-2 w-4 h-4" />
+        </motion.a>
+          </motion.div>
+        </div>
+      </motion.section>
+
       {/* Contact Section */}
       <motion.section
         id="contact"
-        className="py-24 bg-white dark:bg-gray-900"
+        className="py-24 bg-white dark:bg-gray-800"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}

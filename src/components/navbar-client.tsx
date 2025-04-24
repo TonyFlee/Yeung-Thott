@@ -121,7 +121,7 @@ export default function NavbarClient({ isAdmin }: NavbarClientProps) {
             transition={{ duration: 0.3 }}
           >
             <div className="flex flex-col space-y-4">
-              {["about", "gallery", "facebook-posts", "contact"].map((item) => (
+              {["home", "about", "gallery", "contact"].map((item) => (
                 <motion.div
                   key={item}
                   variants={fadeUpVariants} // Fade-up animation for each mobile link
