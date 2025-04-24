@@ -240,7 +240,7 @@ export default function AboutsPage() {
             </h2>
             <div className="space-y-8">
               <motion.div variants={fadeUpVariants} className="flex items-start gap-4">
-                <div className="text-2xl font-bold text-[#468e83] min-w-[80px]">{t("today") || "Today"}</div>
+                <div className="text-2xl font-bold text-[#468e83] min-w-[80px]">{t("2025") || "2025"}</div>
                 <div>
                   <h4 className="font-semibold">{t("timeline2025Title")}</h4>
                   <p className="text-gray-700 dark:text-gray-300">{t("timeline2025Desc")}</p>

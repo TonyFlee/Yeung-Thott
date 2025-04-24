@@ -138,22 +138,6 @@ export default function GalleryPage() {
       image:
         "https://images.unsplash.com/photo-1540317580384-e5d43867caa6?w=800&q=80&random=1",
     },
-    {
-      id: 11,
-      category: "projects",
-      title: "Project Epsilon",
-      description: "Innovation at work",
-      image:
-        "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80&random=5",
-    },
-    {
-      id: 12,
-      category: "team",
-      title: "Team Meeting",
-      description: "Planning for success",
-      image:
-        "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
-    },
   ];
 
   // Filter gallery items based on active category
