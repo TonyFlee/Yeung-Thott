@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
+import { TempoInit } from "@/components/tempo-init";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/context/language-context";
-import MouseFollower from '@/components/mouseFollower'; // ✅ you already imported
+import MouseFollower from '@/components/mouseFollower'; // ✅ youeady imported
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,6 +44,7 @@ export default function RootLayout({
             <MouseFollower />
             
             {children}
+            <TempoInit />
           </LanguageProvider>
         </ThemeProvider>
       </body>
