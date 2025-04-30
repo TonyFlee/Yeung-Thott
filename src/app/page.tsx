@@ -99,7 +99,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">{t("aboutTitle")}</h2>
-            <p className="text-gray-600 max-w-3xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               {t("aboutSubtitle")}
             </p>
           </div>
@@ -119,11 +119,11 @@ export default function Home() {
             </motion.div>
             <motion.div variants={fadeUpVariants}>
               <h3 className="text-2xl font-bold mb-4">{t("ourStory")}</h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 {t("foundedWithVision") ||
                   "YEUNG THOTT started as a small group of friends with big dreams. At first, we didn’t have much—just our passion, curiosity, and the hope that we could create something meaningful. We didn’t come from professional backgrounds, but we believed that with enough effort, anyone can learn, improve, and make a difference."}
               </p>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 {t("diverseTalents") ||
                   "At YEUNG THOTT, we welcome everyone with an open heart. We believe in growing together, helping one another, and building a future filled with hope, innovation, and positive change. Our story is just beginning, and we’re excited for what lies ahead."}
               </p>
@@ -150,7 +150,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
         <h2 className="text-3xl font-bold mb-4">{t("whatWeOffer")}</h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
+        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           {t("comprehensiveRange") ||
             "Take a look at all the services we offer. We’ve created them to fit your needs and hopefully give you even more than you expected."}
         </p>
@@ -206,7 +206,7 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#000000] to-[#468e83] dark:from-[#e3e7d7] dark:to-[#468e83]">
           {service.title}
             </h3>
-            <p className="text-gray-600">{service.description}</p>
+            <p className="text-gray-600 dark:text-gray-300">{service.description}</p>
           </motion.div>
         ))}
           </motion.div>
@@ -230,7 +230,7 @@ export default function Home() {
         variants={fadeInVariants}
           >
         <h2 className="text-3xl font-bold mb-4">{t("latestUpdates")}</h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
+        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           {t("updatesSubtitle") || "Stay updated with our latest news and events."}
         </p>
           </motion.div>
@@ -280,7 +280,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
             {post.description.split(" ").map((word, index) =>
               word.startsWith("#") ? (
             <span

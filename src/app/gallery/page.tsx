@@ -351,7 +351,7 @@ export default function GalleryPage() {
                         {item.description}
                       </p>
                       <div className="mt-4">
-                        <span className="inline-block px-3 py-1 text-xs font-medium bg-[#e3e7d7] dark:bg-[#468e83] text-[#468e83] dark:text-[#e3e7d7] rounded-full">
+                        <span className="inline-block px-3 py-1 text-xs font-medium bg-gray-700 dark:bg-[#468e83] text-[#e3e7d7] dark:text-[#e3e7d7] rounded-full">
                           {
                             categories.find((cat) => cat.id === item.category)
                               ?.name

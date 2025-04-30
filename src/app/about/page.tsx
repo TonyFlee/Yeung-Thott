@@ -189,10 +189,10 @@ export default function AboutsPage() {
             <h2 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">
               {t("ourStoryTitle") || "Our Story"}
             </h2>
-            <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
               {t("ourStoryP1")}
             </p>
-            <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
                     {t("ourStoryP2")}
                   </p>
             <AnimatePresence>
@@ -203,10 +203,10 @@ export default function AboutsPage() {
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                  <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
                     {t("ourStoryP3")}
                   </p>
-                  <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                  <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
                     {t("ourStoryP4")}
                   </p>
                 </motion.div>
@@ -244,14 +244,14 @@ export default function AboutsPage() {
                 <div className="text-2xl font-bold text-[#468e83] min-w-[80px]">{t("2025") || "2025"}</div>
                 <div>
                   <h4 className="font-semibold">{t("timeline2025Title")}</h4>
-                  <p className="text-gray-700 dark:text-gray-300">{t("timeline2025Desc")}</p>
+                  <p className="text-gray-600 dark:text-gray-300">{t("timeline2025Desc")}</p>
                 </div>
               </motion.div>
               <motion.div variants={fadeUpVariants} className="flex items-start gap-4">
                 <div className="text-2xl font-bold text-[#468e83] min-w-[80px]">{t("today") || "Today"}</div>
                 <div>
                   <h4 className="font-semibold">{t("timelineTodayTitle")}</h4>
-                  <p className="text-gray-700 dark:text-gray-300">{t("timelineTodayDesc")}</p>
+                  <p className="text-gray-600 dark:text-gray-300">{t("timelineTodayDesc")}</p>
                 </div>
               </motion.div>
             </div>
@@ -298,7 +298,7 @@ export default function AboutsPage() {
               <div className="text-[#468e83] font-semibold mb-2">
                 {t(member.roleKey)}
               </div>
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
                 {t(member.descKey)}
               </p>
             </div>
