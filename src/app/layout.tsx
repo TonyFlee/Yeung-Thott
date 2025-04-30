@@ -5,7 +5,8 @@ import Script from "next/script";
 import { TempoInit } from "@/components/tempo-init";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/context/language-context";
-import MouseFollower from '@/components/mouseFollower'; // ✅ youeady imported
+import MouseFollower from '@/components/mouseFollower';
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,8 +41,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LanguageProvider>
-            {/* ⬇️ ADD MouseFollower here */}
+
             <MouseFollower />
+            <Analytics />
             
             {children}
             <TempoInit />
