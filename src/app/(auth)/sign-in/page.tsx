@@ -100,7 +100,7 @@ export default async function SignInPage({ searchParams }: LoginProps) {
 
             <div className="text-center text-sm text-muted-foreground dark:text-gray-400 mt-4">
               <p>Admin Email: yeungthott@gmail.com</p>
-              <p>Password: @YeungThott@66</p>
+              <p>Password: ****************</p>
             </div>
           </form>
         </div>
