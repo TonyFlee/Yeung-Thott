@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
-import { TempoInit } from "@/components/tempo-init";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/context/language-context";
 import MouseFollower from '@/components/mouseFollower';
@@ -46,7 +45,6 @@ export default function RootLayout({
             <Analytics />
             
             {children}
-            <TempoInit />
           </LanguageProvider>
         </ThemeProvider>
       </body>
