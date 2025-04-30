@@ -1,50 +1,38 @@
-import React, { useState, useEffect } from "react";
-import Confetti from "react-confetti";
+"use client";
+import React from "react";
 
-const Animation = ({ trigger }: { trigger: boolean }) => {
-  const [showShutter, setShowShutter] = useState(false);
-  const [showConfetti, setShowConfetti] = useState(false);
-
-  useEffect(() => {
-    if (trigger) {
-      // Trigger the camera shutter animation
-      setShowShutter(true);
-      setShowConfetti(true);
-
-      // Remove shutter effect after 1 second
-      const shutterTimeout = setTimeout(() => {
-        setShowShutter(false);
-      }, 1000);
-
-      // Remove confetti after 3 seconds
-      const confettiTimeout = setTimeout(() => {
-        setShowConfetti(false);
-      }, 3000);
-
-      return () => {
-        clearTimeout(shutterTimeout);
-        clearTimeout(confettiTimeout);
-      };
-    }
-  }, [trigger]);
-
-  return (
-    <div className="relative">
-      {/* Shutter Animation */}
-      {showShutter && (
-        <div className="fixed inset-0 bg-black opacity-50 z-50 animate-fade-out" />
-      )}
-
-      {/* Confetti Animation */}
-      {showConfetti && (
-        <Confetti
-          width={window.innerWidth}
-          height={window.innerHeight}
-          numberOfPieces={200}
-        />
-      )}
+const Animation: React.FC = () => (
+  <div style={{
+    position: "absolute",
+    inset: 0,
+    zIndex: 99,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    pointerEvents: "none"
+  }}>
+    <div style={{
+      width: 110,
+      height: 110,
+      borderRadius: "50%",
+      background: "rgba(255,182,193,0.4)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      animation: "popIn 1.1s cubic-bezier(.53,.01,.51,1.01)"
+    }}>
+      <span role="img" aria-label="flash" style={{ fontSize: 60 }}>✨</span>
     </div>
-  );
-};
+    <style>
+      {`
+      @keyframes popIn {
+        0% { transform: scale(0.7); opacity: 0; }
+        45% { transform: scale(1.2); opacity: 1; }
+        100% { transform: scale(1); opacity: 0; }
+      }
+      `}
+    </style>
+  </div>
+);
 
 export default Animation;
