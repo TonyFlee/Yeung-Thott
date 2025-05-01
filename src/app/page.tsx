@@ -3,7 +3,7 @@
 import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar-client-wrapper";
-import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowUpRight,
   Camera,
