@@ -85,7 +85,7 @@ export default function AboutsPage() {
       <main>
         {/* Hero Section */}
         <motion.section
-          className="py-20 bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900"
+          className="py-20 bg-gradient-to-b from-[#cbf8ee]/30 to-[#e3e7d7]/30 dark:from-gray-800 dark:to-gray-900"
           initial="hidden"
           animate="visible"
           variants={fadeUpVariants}
@@ -105,7 +105,7 @@ export default function AboutsPage() {
 
         {/* Values Section */}
         <motion.section
-          className="py-16 bg-white dark:bg-gray-900"
+          className="py-16 bg-[#e3e7d7]/30 dark:bg-gray-900"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -179,7 +179,7 @@ export default function AboutsPage() {
 
         {/* Our Story Section */}
         <motion.section
-          className="py-16 bg-blue-50 dark:bg-gray-800"
+          className="py-16 bg-[#f0fdfa]/30 dark:bg-gray-800"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -229,7 +229,7 @@ export default function AboutsPage() {
 
         {/* Growth Timeline */}
         <motion.section
-          className="py-16 bg-white dark:bg-gray-900"
+          className="py-16 bg-[#e3e7d7]/30 dark:bg-gray-900"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -260,7 +260,7 @@ export default function AboutsPage() {
 
         {/* Meet Our Team */}
         <motion.section
-          className="py-16 bg-blue-50 dark:bg-gray-800"
+          className="py-16 bg-[#f0fdfa]/30 dark:bg-gray-800"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -277,7 +277,7 @@ export default function AboutsPage() {
             className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-105"
             variants={{
               hidden: { opacity: 0, scale: 0.8 },
-              visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+              visible: { opacity: 1, scale: 1, transition: { duration: 0.1 } },
             }}
             initial="hidden"
             whileInView="visible"

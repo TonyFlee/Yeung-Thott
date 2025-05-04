@@ -272,7 +272,7 @@ export default function GalleryPage() {
       <main>
         {/* Hero Section */}
         <motion.section
-          className="py-20 bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900"
+          className="py-20 bg-gradient-to-b from-[#cbf8ee]/30 to-[#e3e7d7]/30 dark:from-gray-800 dark:to-gray-900"
           initial="hidden"
           animate="visible"
           variants={fadeUpVariants}
@@ -292,7 +292,7 @@ export default function GalleryPage() {
 
         {/* Gallery Section */}
         <motion.section
-          className="py-16 bg-white dark:bg-gray-900"
+          className="py-16 bg-[#e3e7d7]/30 dark:bg-gray-900"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}

@@ -98,7 +98,7 @@ export default function ContactPage() {
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Navbar />
 
-      <main className="bg-gradient-to-br from-[#d0f4ff] via-[#e2ffe7] to-[#ffe7f0] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen py-20 px-4 flex items-center justify-center">
+      <main className="py-20 bg-gradient-to-b from-[#cbf8ee]/30 to-[#e3e7d7]/30 dark:from-gray-800 dark:to-gray-900">
         <motion.div
           className="w-full max-w-4xl mx-auto backdrop-blur-md bg-white/30 dark:bg-white/10 shadow-2xl rounded-3xl p-10 border border-white/20"
           initial="hidden"
@@ -107,7 +107,7 @@ export default function ContactPage() {
         >
           <div className="text-center mb-10">
             <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white">
-              📬 {t("contactUs") || "Get in Touch"}
+               {t("contactUs") || "Get in Touch"}
             </h1>
             <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
               {t("contactSubtitle") || "Slide into our inbox — we’d love to hear from you!"}
@@ -118,7 +118,7 @@ export default function ContactPage() {
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-base font-medium text-gray-800 dark:text-white mb-2">
-                  🧑 {t("name") || "Name"}
+                   {t("name") || "Name"}
                 </label>
                 <input
                   type="text"
@@ -130,7 +130,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <label className="block text-base font-medium text-gray-800 dark:text-white mb-2">
-                  📧 {t("email") || "Email"}
+                   {t("email") || "Email"}
                 </label>
                 <input
                   type="email"
@@ -144,7 +144,7 @@ export default function ContactPage() {
 
             <div>
               <label className="block text-base font-medium text-gray-800 dark:text-white mb-2">
-                💬 {t("message") || "Message"}
+                 {t("message") || "Message"}
               </label>
               <textarea
                 name="message"

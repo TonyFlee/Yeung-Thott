@@ -235,7 +235,7 @@ export default function NavbarClient({ isAdmin }: NavbarClientProps) {
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src="https://i.imgur.com/7lHub59.jpeg"
+                src="https://i.imgur.com/yRTrexx.jpeg"
                 alt="Coffee"
                 className="rounded-lg mb-4"
               />

@@ -90,7 +90,7 @@ export default function Home() {
       {/* About Section */}
       <motion.section
         id="about"
-        className="py-24 bg-[#f0fdfa] dark:bg-gray-900"
+        className="py-24 bg-[#f0fdfa]/30 dark:bg-gray-900"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -216,7 +216,7 @@ export default function Home() {
       {/* Facebook Posts Section */}
       <motion.section
         id="facebook-posts"
-        className="py-24 bg-[#e1e9e7] dark:bg-gray-900"
+        className="py-24 bg-[#e1e9e7]/30 dark:bg-gray-900"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
