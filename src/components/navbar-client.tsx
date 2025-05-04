@@ -243,7 +243,7 @@ export default function NavbarClient({ isAdmin }: NavbarClientProps) {
                 Buy Me A Coffee!
               </h2>
               <p className="text-gray-500 dark:text-gray-400">
-              Enjoying my work? A coffee would really help me keep going and create more awesome content. Your support means a lot! ☕❤️
+              A coffee would really help me keep going and create more awesome content. Your support means a lot! ☕❤️
               </p>
               <div className="mt-4 flex justify-center space-x-3">
                 <a
