@@ -29,7 +29,8 @@ export default function Hero() {
       variants={fadeInVariants} // Fade-in effect for the entire Hero section
     >
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 opacity-70 dark:opacity-10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#cbf8ee] via-white to-[#dfe6cc] opacity-80 dark:opacity-10" />
+
 
       <div className="relative pt-24 pb-32 sm:pt-32 sm:pb-40">
         <div className="container mx-auto px-4">

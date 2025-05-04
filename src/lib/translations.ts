@@ -100,7 +100,9 @@ type TranslationKey =
   | "member1Desc"
   | "member2Name"
   | "member2Role"
-  | "member2Desc";
+  | "member2Desc"
+  | "buymecoffee"
+  | "buymecoffeeDesc";
 
 type Translations = {
   [key in Language]: {
@@ -221,6 +223,8 @@ export const translations: Translations = {
     member2Name: "Torn Visal",
     member2Role: "Social Media Manager",
     member2Desc: "Torn Visal is a skilled social media manager with a knack for creating engaging content and building online communities. His strategic approach to social media helps connect our brand with our audience, ensuring that our message resonates and reaches the right people.",
+    buymecoffee: "Buy Me a Coffee",
+    buymecoffeeDesc: "Enjoying my work? A coffee would really help me keep going and create more awesome content. Your support means a lot! ☕❤️",
   },
   km: {
     nameweb: "យើងថត",
@@ -338,6 +342,8 @@ export const translations: Translations = {
     member2Name: "ទន វិសាល",
     member2Role: "អ្នកគ្រប់គ្រងទំព័រ និងអ្នកបង្កើតមាតិកា",
     member2Desc: "ទន វិសាល គឺកំពុងស្ថិតនៅដំណាក់កាលដំបូងនៃអាជីពរបស់គាត់ក្នុងការគ្រប់គ្រងទំព័រហ្វេសប៊ុក និងគេហទំព័រ។ និងធ្វើការផ្សព្វផ្សាយរូបភាពជាប្រចាំ ដើម្បីធានាថាការងាររបស់ក្រុមបានឈានទៅកាន់អ្នកទស្សនាកាន់តែមានអារម្មណ៍ល្អ។ ហើយផ្តោតលើការស្វែងរក និងការលូតលាស់ នៅក្នុងការរក្សាទំនាក់ទំនងអនឡាញសកម្ម។",
+    buymecoffee: "ជួយគាំទ្រយើង",
+    buymecoffeeDesc: "រីករាយនឹងការងាររបស់ខ្ញុំ? កាហ្វេពិតជាអាចជួយខ្ញុំបន្ត និងបង្កើតខ្លឹមសារដ៏អស្ចារ្យបន្ថែមទៀត។ ការគាំទ្ររបស់អ្នកមានន័យច្រើន! ☕❤️"  
   },
 };
 

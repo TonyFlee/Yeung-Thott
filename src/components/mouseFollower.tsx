@@ -83,7 +83,7 @@ export default function MouseFollower() {
         dark:bg-[#000]/10
         backdrop-blur-sm
         transition-all duration-200 ease-out
-        ${isClicking ? 'scale-75 bg-{#468e83}/30 border-{#468e83}' : ''}
+        ${isClicking ? 'scale-75 bg-[#468e83]/30 border-[#468e83]' : ''}
       `}
       style={{
         transform: `translate(${followerPosition.x - 10}px, ${followerPosition.y - 10}px)`,
