@@ -110,7 +110,7 @@ export default function Hero() {
                 ></motion.div>
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                   <Image
-                    src="/favicon.ico"
+                    src="/assets/images/YeungThottLogo.jpg"
                     alt="YEUNG THOTT Team"
                     width={600}
                     height={400}

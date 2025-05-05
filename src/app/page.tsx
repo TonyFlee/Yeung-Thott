@@ -13,6 +13,7 @@ import {
   Users,
   Zap,
   Facebook,
+  Target,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -110,7 +111,7 @@ export default function Home() {
               variants={fadeUpVariants}
             >
               <Image
-                src="https://i.imgur.com/rpLidJF.png"
+                src="/assets/images/YeungThottBanner.png"
                 alt="Team Photo"
                 width={600}
                 height={400}
@@ -239,21 +240,21 @@ export default function Home() {
         {[
           {
             id: 1,
-            imageUrl: "https://i.imgur.com/tW2hYph.jpeg",
+            imageUrl: "/assets/images/Facebook Post/TheamGallery.jpeg",
             description: "វិចិត្រសាលធាម-Theam’s Gallery ក្នុងខេត្តសៀមរាប🖼️ #យើងថត #yeungThott",
             date: "2025-01-31",
             href: "https://www.facebook.com/share/p/1FSw3j1jEk/",
           },
           {
             id: 2,
-            imageUrl: "https://i.imgur.com/aHY2An2.jpeg",
+            imageUrl: "/assets/images/Facebook Post/Songkran1.jpeg",
             description: "អបអរសាទរឆ្នាំថ្មីខ្មែរ ការរៀបចំសង្ក្រាន្តនៅក្នុងកំពង់ធំ #យើងថត #YeungThott",
             date: "2025-04-16",
             href: "https://www.facebook.com/share/p/1AfxR9qqQB/",
           },
           {
             id: 3,
-            imageUrl: "https://i.imgur.com/1WKDiWf.jpeg",
+            imageUrl: "/assets/images/Facebook Post/Songkran2.jpeg",
             description: "សង្ក្រាន្តខេត្តកំពង់ធំ ការប្រារព្ធពិធី ស្រង់ព្រះពូនភ្នំខ្សាច់ #យើងថត #YeungThott",
             date: "2025-04-17",
             href: "https://www.facebook.com/share/p/1AnQ9MrL1c/",
@@ -307,6 +308,7 @@ export default function Home() {
           <div className="text-right">
             <motion.a
               href={post.href}
+              target="_blank"
               className="text-blue-600 underline cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
