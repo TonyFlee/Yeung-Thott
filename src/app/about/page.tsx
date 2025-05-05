@@ -35,16 +35,16 @@ const teamMembers = [
     roleKey: "member1Role",
     descKey: "member1Desc",
     image: "https://i.imgur.com/nUBvrcG.jpeg",
-    facebook: "https://facebook.com/example",
-    instagram: "https://instagram.com/example",
+    facebook: "https://www.facebook.com/Natsuz.D27",
+    instagram: "https://instagram.com/davith_composer",
   },
   {
     nameKey: "member2Name",
     roleKey: "member2Role",
     descKey: "member2Desc",
     image: "https://i.imgur.com/Gutk4Oa.jpeg",
-    facebook: "https://facebook.com/example",
-    instagram: "https://instagram.com/example",
+    facebook: "https://facebook.com/torn.visal.77",
+    instagram: "https://instagram.com/torn.visal.77",
   },
 ];
 

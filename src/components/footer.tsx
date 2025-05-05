@@ -112,7 +112,7 @@ export default function Footer() {
               <li className="flex items-start group">
                 <MapPin className="h-5 w-5 text-[#468e83] dark:text-[#e3e7d7] mr-2 mt-0.5 group-hover:scale-110 transition-transform duration-300" />
                 <span className="text-gray-600 dark:text-gray-400 group-hover:text-[#468e83] dark:group-hover:text-[#e3e7d7] transition-colors duration-300">
-                  123 Main Street, Phnom Penh, Cambodia
+                National No. 6, Siem Reap, Cambodia
                 </span>
               </li>
               <li className="flex items-center group">
