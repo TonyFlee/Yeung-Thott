@@ -42,7 +42,7 @@ const teamMembers = [
     nameKey: "member2Name",
     roleKey: "member2Role",
     descKey: "member2Desc",
-    image: "/assets/images/Team Work/flee1.jpeg",
+    image: "/assets/images/Team Work/Flee1.jpeg",
     facebook: "https://facebook.com/torn.visal.77",
     instagram: "https://instagram.com/torn.visal.77",
   },

@@ -71,14 +71,14 @@ export default function GalleryPage() {
       category: "team",
       title: "Steav Team",
       description: "Gangster vibes",
-      image: "/assets/images/Team Work/flee2.jpeg",
+      image: "/assets/images/Team Work/Flee2.jpeg",
     },
     {
       id: 3,
       category: "project",
       title: "ទស្សនៈកិច្ច",
       description: "A glimpse into our project",
-      image: "/assets/images/Project/Project.jpeg",
+      image: "/assets/images/Project/project.jpeg",
     },
     {
       id: 4,
@@ -120,14 +120,14 @@ export default function GalleryPage() {
       category: "team",
       title: "Sup Dawg",
       description: "Team bonding moments",
-      image: "/assets/images/Team Work/flee.jpeg",
+      image: "/assets/images/Team Work/Flee.jpeg",
     },
     {
       id: 10,
       category: "project",
       title: "ទស្សនៈកិច្ច",
       description: "Exploring the project site",
-      image: "/assets/images/Project/Project5.jpeg",
+      image: "/assets/images/Project/project5.jpeg",
     },
     {
       id: 11,
