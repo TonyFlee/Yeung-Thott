@@ -5,6 +5,8 @@ import Footer from "@/components/footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/language-context";
 import { useState, useEffect } from "react";
+import { Facebook, Instagram } from "lucide-react";
+
 
 // Animation variants
 const fadeUpVariants = {
@@ -17,6 +19,15 @@ const loadingVariants = {
   visible: { opacity: 1, transition: { duration: 0.5, yoyo: Infinity } },
 };
 
+const iconAttentionVariants = {
+  hidden: { opacity: 0, scale: 0.5 },
+  visible: {
+    opacity: 1,
+    scale: [0.5, 1.2, 1],
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
 
 const teamMembers = [
   {
@@ -24,12 +35,16 @@ const teamMembers = [
     roleKey: "member1Role",
     descKey: "member1Desc",
     image: "https://i.imgur.com/nUBvrcG.jpeg",
+    facebook: "https://facebook.com/example",
+    instagram: "https://instagram.com/example",
   },
   {
     nameKey: "member2Name",
     roleKey: "member2Role",
     descKey: "member2Desc",
     image: "https://i.imgur.com/Gutk4Oa.jpeg",
+    facebook: "https://facebook.com/example",
+    instagram: "https://instagram.com/example",
   },
 ];
 
@@ -272,37 +287,61 @@ export default function AboutsPage() {
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
               {teamMembers.map((member, index) => (
-            <motion.div
-            key={index}
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-105"
-            variants={{
-              hidden: { opacity: 0, scale: 0.8 },
-              visible: { opacity: 1, scale: 1, transition: { duration: 0.1 } },
-            }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.05 }}
-          >
-            <div className="h-64 overflow-hidden">
-              <img
-                src={member.image}
-                alt={t("ourTeamImageAlt") || "Team member"}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-1">
-                {t(member.nameKey)}
-              </h3>
-              <div className="text-[#468e83] font-semibold mb-2">
-                {t(member.roleKey)}
-              </div>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
-                {t(member.descKey)}
-              </p>
-            </div>
-          </motion.div>
+                <motion.div
+                  key={index}
+                  className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-105"
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.8 },
+                    visible: {
+                      opacity: 1,
+                      scale: 1,
+                      transition: { duration: 0.1 },
+                    },
+                  }}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <div className="h-64 overflow-hidden">
+                    <img
+                      src={member.image}
+                      alt={t("ourTeamImageAlt") || "Team member"}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-1">
+                      {t(member.nameKey)}
+                    </h3>
+                    <div className="text-[#468e83] font-semibold mb-2">
+                      {t(member.roleKey)}
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">
+                      {t(member.descKey)}
+                    </p>
+
+                    {/* Social Links */}
+                    <div className="flex space-x-4 mt-4">
+                      <a
+                        href={member.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#3b5998] hover:text-[#468e83] transition-colors"
+                      >
+                        <Facebook className="w-5 h-5" />
+                      </a>
+                      <a
+                        href={member.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#E1306C] hover:text-[#468e83] transition-colors"
+                      >
+                        <Instagram className="w-5 h-5" />
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
