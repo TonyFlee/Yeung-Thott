@@ -3,7 +3,8 @@
 import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar-client-wrapper";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import FacebookPostsSection from "@/components/FacebookPostsSection";
 import {
   ArrowUpRight,
   Camera,
@@ -12,8 +13,6 @@ import {
   Shield,
   Users,
   Zap,
-  Facebook,
-  Target,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -45,7 +44,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // Simulate a 2-second loading time
+    }, 2000);
 
     // Animate loading text
     let dots = 1;
@@ -150,198 +149,73 @@ export default function Home() {
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-        <h2 className="text-3xl font-bold mb-4">{t("whatWeOffer")}</h2>
-        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          {t("comprehensiveRange") ||
-            "Take a look at all the services we offer. We’ve created them to fit your needs and hopefully give you even more than you expected."}
-        </p>
+            <h2 className="text-3xl font-bold mb-4">{t("whatWeOffer")}</h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              {t("comprehensiveRange") ||
+                "Take a look at all the services we offer. We’ve created them to fit your needs and hopefully give you even more than you expected."}
+            </p>
           </div>
 
           <motion.div
-        className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeUpVariants}
-          >
-        {[
-          {
-            icon: <Shield className="w-6 h-6" />,
-            title: t("professionalService"),
-            description: t("professionalServiceDescription"),
-          },
-          {
-            icon: <Users className="w-6 h-6" />,
-            title: t("teamCollaboration") || "Team Collaboration",
-            description: t("teamCollaborationDescription"),
-          },
-          {
-            icon: <Zap className="w-6 h-6" />,
-            title: t("fastDelivery") || "Fast Delivery",
-            description: t("fastDeliveryDescription"),
-          },
-          {
-            icon: <CheckCircle2 className="w-6 h-6" />,
-            title: t("qualityAssurance"),
-            description: t("qualityAssuranceDescription"),
-          },
-          {
-            icon: <MessageSquare className="w-6 h-6" />,
-            title: t("clearCommunication") || "Clear Communication",
-            description: t("clearCommunicationDescription"),
-          },
-          {
-            icon: <Camera className="w-6 h-6" />,
-            title: t("creativeSolutions") || "Creative Solutions",
-            description: t("creativeSolutionsDescription"),
-          },
-        ].map((service, index) => (
-          <motion.div
-            key={index}
-            className="p-6 dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
             variants={fadeUpVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
-            <div className="text-[#468e83] mb-4">{service.icon}</div>
-            <h3 className="text-xl font-semibold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#000000] to-[#468e83] dark:from-[#e3e7d7] dark:to-[#468e83]">
-          {service.title}
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300">{service.description}</p>
-          </motion.div>
-        ))}
+            {[
+              {
+                icon: <Shield className="w-6 h-6" />,
+                title: t("professionalService"),
+                description: t("professionalServiceDescription"),
+              },
+              {
+                icon: <Users className="w-6 h-6" />,
+                title: t("teamCollaboration") || "Team Collaboration",
+                description: t("teamCollaborationDescription"),
+              },
+              {
+                icon: <Zap className="w-6 h-6" />,
+                title: t("fastDelivery") || "Fast Delivery",
+                description: t("fastDeliveryDescription"),
+              },
+              {
+                icon: <CheckCircle2 className="w-6 h-6" />,
+                title: t("qualityAssurance"),
+                description: t("qualityAssuranceDescription"),
+              },
+              {
+                icon: <MessageSquare className="w-6 h-6" />,
+                title: t("clearCommunication") || "Clear Communication",
+                description: t("clearCommunicationDescription"),
+              },
+              {
+                icon: <Camera className="w-6 h-6" />,
+                title: t("creativeSolutions") || "Creative Solutions",
+                description: t("creativeSolutionsDescription"),
+              },
+            ].map((service, index) => (
+              <motion.div
+                key={index}
+                className="p-6 dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                variants={fadeUpVariants}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div className="text-[#468e83] mb-4">{service.icon}</div>
+                <h3 className="text-xl font-semibold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#000000] to-[#468e83] dark:from-[#e3e7d7] dark:to-[#468e83]">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">{service.description}</p>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </motion.section>
 
-      {/* Facebook Posts Section */}
-      <motion.section
-        id="facebook-posts"
-        className="py-24 bg-[#e1e9e7]/30 dark:bg-gray-900"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeUpVariants}
-      >
-        <div className="container mx-auto px-4">
-          <motion.div
-        className="text-center mb-16"
-        initial="hidden"
-        animate="visible"
-        variants={fadeInVariants}
-          >
-        <h2 className="text-3xl font-bold mb-4">{t("latestUpdates")}</h2>
-        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          {t("updatesSubtitle") || "Stay updated with our latest news and events."}
-        </p>
-          </motion.div>
+      {/* Facebook Posts Section (dynamic from Supabase) */}
+      <FacebookPostsSection t={t} />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {[
-          {
-            id: 1,
-            imageUrl: "/assets/images/Facebook Post/TheamGallery.jpeg",
-            description: "វិចិត្រសាលធាម-Theam’s Gallery ក្នុងខេត្តសៀមរាប🖼️ #យើងថត #yeungThott",
-            date: "2025-01-31",
-            href: "https://www.facebook.com/share/p/1FSw3j1jEk/",
-          },
-          {
-            id: 2,
-            imageUrl: "/assets/images/Facebook Post/Songkran1.jpeg",
-            description: "អបអរសាទរឆ្នាំថ្មីខ្មែរ ការរៀបចំសង្ក្រាន្តនៅក្នុងកំពង់ធំ #យើងថត #YeungThott",
-            date: "2025-04-16",
-            href: "https://www.facebook.com/share/p/1AfxR9qqQB/",
-          },
-          {
-            id: 3,
-            imageUrl: "/assets/images/Facebook Post/Songkran2.jpeg",
-            description: "សង្ក្រាន្តខេត្តកំពង់ធំ ការប្រារព្ធពិធី ស្រង់ព្រះពូនភ្នំខ្សាច់ #យើងថត #YeungThott",
-            date: "2025-04-17",
-            href: "https://www.facebook.com/share/p/1AnQ9MrL1c/",
-          },
-        ].map((post) => (
-          <motion.div
-            key={post.id}
-            className="dark:bg-gray-800 rounded-xl shadow-md overflow-hidden"
-            variants={fadeUpVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <div className="p-6">
-          <div className="flex items-center mb-4">
-            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3">
-              <Facebook className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#000000] to-[#468e83] dark:from-[#e3e7d7] dark:to-[#468e83]">
-              យើងថត • Yeung Thott 
-              </h4>
-              <p className="text-xs text-gray-500">
-            {new Date(post.date).toLocaleDateString()}
-              </p>
-            </div>
-          </div>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
-            {post.description.split(" ").map((word, index) =>
-              word.startsWith("#") ? (
-            <span
-              key={index}
-              className="text-blue-600 underline cursor-pointer"
-            >
-              {word}{" "}
-            </span>
-              ) : (
-            word + " "
-              )
-            )}
-          </p>
-          <motion.div
-            className="aspect-video bg-gray-100 rounded-lg mb-4 overflow-hidden"
-            whileHover={{ scale: 1.05 }}
-          >
-            <img
-              src={post.imageUrl}
-              alt="Facebook Post"
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-          <div className="text-right">
-            <motion.a
-              href={post.href}
-              target="_blank"
-              className="text-blue-600 underline cursor-pointer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {t("readMore")}
-            </motion.a>
-          </div>
-            </div>
-          </motion.div>
-        ))}
-          </div>
-
-          <motion.div
-        className="text-center mt-12"
-        initial="hidden"
-        animate="visible"
-        variants={fadeInVariants}
-          >
-        <motion.a
-          href="https://facebook.com/yeungthott"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center px-6 py-3 text-white bg-[#468e83] rounded-lg hover:bg-[#32645d] transition-colors"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {t("visitFacebook") ||
-          "Visit our Facebook Page"}
-          <ArrowUpRight className="ml-2 w-4 h-4" />
-        </motion.a>
-          </motion.div>
-        </div>
-      </motion.section>
       <Footer />
     </div>
   );

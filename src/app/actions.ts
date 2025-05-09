@@ -3,8 +3,9 @@
 import { encodedRedirect } from "@/utils/utils";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { createClient } from "../../supabase/server";
+import { createClient } from "../supabase/server";
 
+// Sign Up
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
@@ -14,11 +15,7 @@ export const signUpAction = async (formData: FormData) => {
   const origin = headerList.get("origin");
 
   if (!email || !password) {
-    return encodedRedirect(
-      "error",
-      "/sign-up",
-      "Email and password are required"
-    );
+    return encodedRedirect("error", "/sign-up", "Email and password are required");
   }
 
   const {
@@ -68,85 +65,59 @@ export const signUpAction = async (formData: FormData) => {
   );
 };
 
+// Sign In (Admin Only)
 export const signInAction = async (formData: FormData) => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const redirectTo = (formData.get("redirect") as string) || "/dashboard";
   const supabase = await createClient();
 
-  if (email === "yeungthott@gmail.com" && password === "@YeungThott@66") {
-    try {
-      const { data: existingUser, error: checkError } = await supabase
-        .from("users")
-        .select("*")
-        .eq("email", email)
-        .single();
-
-      if (checkError && checkError.code !== "PGRST116") {
-        console.error("Error checking for existing admin:", checkError);
-      }
-
-      if (!existingUser) {
-        const { data: newUser, error: signUpError } =
-          await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-              data: {
-                full_name: "YEUNG THOTT Admin",
-                role: "admin",
-              },
-            },
-          });
-
-        if (!signUpError && newUser?.user) {
-          const { error: insertError } = await supabase.from("users").insert({
-            id: newUser.user.id,
-            email: email,
-            role: "admin",
-            full_name: "YEUNG THOTT Admin",
-            created_at: new Date().toISOString(),
-          });
-
-          if (insertError) {
-            console.error("Error creating admin in users table:", insertError);
-          }
-        }
-      }
-
-      const { data: signInData, error: signInError } =
-        await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-
-      if (signInError) {
-        return encodedRedirect("error", "/sign-in", signInError.message);
-      }
-
-      return redirect(redirectTo);
-    } catch (err) {
-      return encodedRedirect(
-        "error",
-        "/sign-in",
-        "An unexpected error occurred. Please try again."
-      );
-    }
-  } else {
-    return encodedRedirect(
-      "error",
-      "/sign-in",
-      "Invalid credentials. Only admin access is allowed."
-    );
+  // Allow only fixed admin credentials
+  if (email !== "yeungthott@gmail.com" || password !== "@YeungThott@66") {
+    return encodedRedirect("error", "/sign-in", "Invalid credentials. Only admin access is allowed.");
   }
+
+  // Try signing in
+  const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (signInError) {
+    return encodedRedirect("error", "/sign-in", signInError.message);
+  }
+
+  // Insert into users table if not already present
+  const { data: existingUser, error: checkError } = await supabase
+    .from("users")
+    .select("*")
+    .eq("email", email)
+    .single();
+
+  if (!existingUser) {
+    const { error: insertError } = await supabase.from("users").insert({
+      id: signInData.user.id,
+      email,
+      full_name: "YEUNG THOTT Admin",
+      role: "admin",
+      created_at: new Date().toISOString(),
+    });
+
+    if (insertError) {
+      console.error("Error inserting admin user:", insertError);
+    }
+  }
+
+  return redirect(redirectTo);
 };
 
+// Forgot Password
 export const forgotPasswordAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
+  const callbackUrl = formData.get("callbackUrl")?.toString();
   const headerList = await headers();
   const origin = headerList.get("origin");
   const supabase = await createClient();
-  const callbackUrl = formData.get("callbackUrl")?.toString();
 
   if (!email) {
     return encodedRedirect("error", "/forgot-password", "Email is required");
@@ -157,65 +128,40 @@ export const forgotPasswordAction = async (formData: FormData) => {
   });
 
   if (error) {
-    return encodedRedirect(
-      "error",
-      "/forgot-password",
-      "Could not reset password"
-    );
+    return encodedRedirect("error", "/forgot-password", "Could not reset password");
   }
 
   if (callbackUrl) {
     return redirect(callbackUrl);
   }
 
-  return encodedRedirect(
-    "success",
-    "/forgot-password",
-    "Check your email for a link to reset your password."
-  );
+  return encodedRedirect("success", "/forgot-password", "Check your email for a link to reset your password.");
 };
 
+// Reset Password
 export const resetPasswordAction = async (formData: FormData) => {
-  const supabase = await createClient();
-
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirmPassword") as string;
+  const supabase = await createClient();
 
   if (!password || !confirmPassword) {
-    return encodedRedirect(
-      "error",
-      "/protected/reset-password",
-      "Password and confirm password are required"
-    );
+    return encodedRedirect("error", "/protected/reset-password", "Password and confirm password are required");
   }
 
   if (password !== confirmPassword) {
-    return encodedRedirect(
-      "error",
-      "/dashboard/reset-password",
-      "Passwords do not match"
-    );
+    return encodedRedirect("error", "/dashboard/reset-password", "Passwords do not match");
   }
 
-  const { error } = await supabase.auth.updateUser({
-    password: password,
-  });
+  const { error } = await supabase.auth.updateUser({ password });
 
   if (error) {
-    return encodedRedirect(
-      "error",
-      "/dashboard/reset-password",
-      "Password update failed"
-    );
+    return encodedRedirect("error", "/dashboard/reset-password", "Password update failed");
   }
 
-  return encodedRedirect(
-    "success",
-    "/protected/reset-password",
-    "Password updated"
-  );
+  return encodedRedirect("success", "/protected/reset-password", "Password updated");
 };
 
+// Sign Out
 export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();

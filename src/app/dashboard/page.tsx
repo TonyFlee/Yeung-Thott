@@ -1,8 +1,9 @@
 import { redirect } from "next/navigation";
-import { createClient } from "../../../supabase/server";
+import { createClient } from "../../supabase/server";
 import DashboardNavbar from "@/components/dashboard-navbar";
 import { InfoIcon, UserCircle } from "lucide-react";
 import { Metadata } from "next";
+
 
 export const metadata: Metadata = {
   title: "Admin Dashboard - YEUNG THOTT",

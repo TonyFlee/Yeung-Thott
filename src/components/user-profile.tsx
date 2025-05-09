@@ -2,11 +2,11 @@
 import { UserCircle } from 'lucide-react'
 import { Button } from './ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu'
-import { createClient } from '../../supabase/client'
+import { createClientComponentClient } from '../supabase/client'
 import { useRouter } from 'next/navigation'
 
 export default function UserProfile() {
-    const supabase = createClient()
+    const supabase = createClientComponentClient()
     const router = useRouter()
 
     return (
@@ -25,6 +25,5 @@ export default function UserProfile() {
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
-
     )
 }

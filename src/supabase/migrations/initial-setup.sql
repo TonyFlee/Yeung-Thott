@@ -90,4 +90,14 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 DROP TRIGGER IF EXISTS on_auth_user_updated ON auth.users;
 CREATE TRIGGER on_auth_user_updated
   AFTER UPDATE ON auth.users
-  FOR EACH ROW EXECUTE FUNCTION public.handle_user_update(); 
+  FOR EACH ROW EXECUTE FUNCTION public.handle_user_update();
+
+  create table public.facebook_posts (
+  id uuid primary key default gen_random_uuid(),
+  image_url text not null,
+  description text not null,
+  href text not null,
+  post_date date default current_date,
+  user_id uuid references public.users(id),
+  created_at timestamptz default now()
+);

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { createClient } from "../../supabase/client"; // Updated import
+
 import {
   DropdownMenu,
   DropdownMenuContent,
