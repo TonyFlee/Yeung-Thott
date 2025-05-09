@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useLanguage } from "@/context/language-context";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { createClientComponentClient } from "@/supabase/client";
 
 // Animation variants
 const fadeUpVariants = {
@@ -29,12 +30,37 @@ export default function GalleryPage() {
   const [visibleItems, setVisibleItems] = useState(6);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingText, setLoadingText] = useState("Loading.");
+  const [galleryItems, setGalleryItems] = useState<
+    {
+      id: string;
+      category: string;
+      title: string;
+      description: string;
+      image_url: string;
+    }[]
+  >([]);
 
-  // Simulate initial loading effect
+  // Fetch gallery data from Supabase
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const supabase = createClientComponentClient();
+
+    async function fetchGallery() {
+      setIsLoading(true);
+      const { data, error } = await supabase
+        .from("gallery")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) {
+        setGalleryItems([]);
+        setLoadingText("Error loading gallery");
+      } else {
+        setGalleryItems(data || []);
+        setLoadingText("Loading.");
+      }
       setIsLoading(false);
-    }, 1500);
+    }
+
+    fetchGallery();
 
     // Animate loading text
     let dots = 1;
@@ -44,182 +70,17 @@ export default function GalleryPage() {
     }, 400);
 
     return () => {
-      clearTimeout(timer);
       clearInterval(loadingInterval);
     };
   }, []);
 
-  // Sample categories and images
+  // Category definitions
   const categories = [
     { id: "all", name: t("all") || "All" },
     { id: "project", name: t("project") || "Project" },
     { id: "team", name: t("team") || "Team" },
     { id: "events", name: t("events") || "Events" },
     { id: "sport", name: t("sport") || "Sport" },
-  ];
-
-  const galleryItems = [
-    {
-      id: 1,
-      category: "events",
-      title: "សង្រ្កាន្ត ខេត្តកំពង់ធំ",
-      description: "Celebrating the Khmer New Year",
-      image: "/assets/images/Songkran/songkran2.jpeg",
-    },
-    {
-      id: 2,
-      category: "team",
-      title: "Steav Team",
-      description: "Gangster vibes",
-      image: "/assets/images/Team Work/Flee2.jpeg",
-    },
-    {
-      id: 3,
-      category: "project",
-      title: "ទស្សនៈកិច្ច",
-      description: "A glimpse into our project",
-      image: "/assets/images/Project/project.jpeg",
-    },
-    {
-      id: 4,
-      category: "sport",
-      title: "Basketball Tournament",
-      description: "Teamwork and strategy",
-      image: "/assets/images/Sports/basketball.jpeg",
-    },
-    {
-      id: 5,
-      category: "events",
-      title: "សង្រ្កាន្ត ខេត្តកំពង់ធំ",
-      description: "Celebrating the Khmer New Year",
-      image: "/assets/images/Songkran/songkran4.jpeg",
-    },
-    {
-      id: 6,
-      category: "project",
-      title: "Angkor Wat",
-      description: "Exploring the ancient temple",
-      image: "/assets/images/Project/project1.jpeg",
-    },
-    {
-      id: 7,
-      category: "project",
-      title: "ឆ្នេរខ្សាច់ស្ទឹងសែន",
-      description: "A day at the beach",
-      image: "/assets/images/Project/project3.jpeg",
-    },
-    {
-      id: 8,
-      category: "sport",
-      title: "Football Match",
-      description: "Team spirit and competition",
-      image: "/assets/images/Sports/football1.jpeg",
-    },
-    {
-      id: 9,
-      category: "team",
-      title: "Sup Dawg",
-      description: "Team bonding moments",
-      image: "/assets/images/Team Work/Flee.jpeg",
-    },
-    {
-      id: 10,
-      category: "project",
-      title: "ទស្សនៈកិច្ច",
-      description: "Exploring the project site",
-      image: "/assets/images/Project/project5.jpeg",
-    },
-    {
-      id: 11,
-      category: "sport",
-      title: "Fotball Match",
-      description: "Teamwork and strategy",
-      image: "/assets/images/Sports/football3.jpeg",
-    },
-    {
-      id: 12,
-      category: "sport",
-      title: "Basketball Tournament",
-      description: "Teamwork and strategy",
-      image: "/assets/images/Sports/basketball1.jpeg",
-    },
-    {
-      id: 13,
-      category: "events",
-      title: "សង្រ្កាន្ត ខេត្តកំពង់ធំ",
-      description: "Celebrating the Khmer New Year",
-      image: "/assets/images/Songkran/songkran.jpeg",
-    },
-    {
-      id: 14,
-      category: "team",
-      title: "Yooo wassup",
-      description: "Team bonding moments",
-      image: "/assets/images/Team Work/David1.jpeg",
-    },
-    {
-      id: 15,
-      category: "project",
-      title: "វិចិត្រសាលធាម",
-      description: "A day at the beach",
-      image: "/assets/images/Project/project4.jpeg",
-    },
-    {
-      id: 16,
-      category: "sport",
-      title: "Football Match",
-      description: "Excellence in execution",
-      image: "/assets/images/Sports/football2.jpeg",
-    },
-    {
-      id: 17,
-      category: "events",
-      title: "ពិធី ស្រង់ព្រះពូនភ្នំខ្សាច់",
-      description: "Celebrating the Khmer New Year",
-      image: "/assets/images/Songkran/songkran1.jpeg",
-    },
-    {
-      id: 18,
-      category: "events",
-      title: "សង្រ្កាន្ត ខេត្តកំពង់ធំ",
-      description: "Celebrating the Khmer New Year",
-      image: "/assets/images/Songkran/songkran5.jpeg",
-    },
-    {
-      id: 19,
-      category: "project",
-      title: "Sunset",
-      description: "A beautiful sunset view",
-      image: "/assets/images/Project/project2.jpeg",
-    },
-    {
-      id: 20,
-      category: "events",
-      title: "សង្រ្កាន្ត ខេត្តកំពង់ធំ",
-      description: "Celebrating the Khmer New Year",
-      image: "/assets/images/Songkran/songkran3.jpeg",
-    },
-    {
-      id: 21,
-      category: "sport",
-      title: "Football Match",
-      description: "Excellence in execution",
-      image: "/assets/images/Sports/football.jpeg",
-    },
-    {
-      id: 22,
-      category: "events",
-      title: "សង្រ្កាន្ត ខេត្តកំពង់ធំ",
-      description: "Celebrating the Khmer New Year",
-      image: "/assets/images/Songkran/songkran6.jpeg",
-    },
-    {
-      id: 23,
-      category: "team",
-      title: "Camera Crew",
-      description: "Team bonding moments",
-      image: "/assets/images/Team Work/David.jpeg",
-    },  
   ];
 
   // Filter gallery items based on active category
@@ -336,7 +197,7 @@ export default function GalleryPage() {
                   >
                     <div className="aspect-video overflow-hidden">
                       <Image
-                        src={item.image}
+                        src={item.image_url}
                         alt={item.title}
                         width={600}
                         height={400}

@@ -3,7 +3,7 @@ import { createClient } from "../../supabase/server";
 import DashboardNavbar from "@/components/dashboard-navbar";
 import { InfoIcon, UserCircle } from "lucide-react";
 import { Metadata } from "next";
-
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard - YEUNG THOTT",
@@ -73,9 +73,11 @@ export default async function Dashboard() {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Update website content, images, and text.
               </p>
-              <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
-                Manage Content
-              </button>
+              <Link href="/dashboard/content">
+                <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                  Manage Content
+                </button>
+              </Link>
             </div>
 
             {/* Gallery Management */}
@@ -86,9 +88,11 @@ export default async function Dashboard() {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Upload, organize, and delete gallery images.
               </p>
-              <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
-                Manage Gallery
-              </button>
+              <Link href="/dashboard/gallery">
+                <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                  Manage Gallery
+                </button>
+              </Link>
             </div>
 
             {/* Facebook Posts */}
@@ -99,9 +103,11 @@ export default async function Dashboard() {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Embed and manage Facebook posts on your website.
               </p>
-              <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
-                Manage Posts
-              </button>
+              <Link href="/dashboard/facebook">
+                <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                  Manage Posts
+                </button>
+              </Link>
             </div>
 
             {/* Contact Messages */}
@@ -112,9 +118,11 @@ export default async function Dashboard() {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 View and respond to messages from the contact form.
               </p>
-              <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
-                View Messages
-              </button>
+              <Link href="/dashboard/messages">
+                <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                  View Messages
+                </button>
+              </Link>
             </div>
 
             {/* Settings */}
@@ -125,9 +133,11 @@ export default async function Dashboard() {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Configure website settings and preferences.
               </p>
-              <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
-                Manage Settings
-              </button>
+              <Link href="/dashboard/settings">
+                <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                  Manage Settings
+                </button>
+              </Link>
             </div>
 
             {/* Analytics */}
@@ -138,9 +148,11 @@ export default async function Dashboard() {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 View website traffic and user engagement data.
               </p>
-              <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
-                View Analytics
-              </button>
+              <Link href="/dashboard/analytics">
+                <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                  View Analytics
+                </button>
+              </Link>
             </div>
           </div>
         </div>

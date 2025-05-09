@@ -1,374 +1,299 @@
 "use client";
-
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { motion, AnimatePresence } from "framer-motion";
-import { Upload, Trash2, Plus, Image as ImageIcon, X } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Pencil, Trash2, Plus, UploadCloud, X } from "lucide-react";
+import { createClientComponentClient } from "@/supabase/client";
 import DashboardNavbar from "@/components/dashboard-navbar";
-import Image from "next/image";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog";
 
-type GalleryImage = {
-  id: number;
-  url: string;
-  title: string;
+type GalleryItem = {
+  id: string;
   category: string;
+  title: string;
+  description: string;
+  image_url: string;
 };
 
-export default function GalleryManagement() {
-  const [images, setImages] = useState<GalleryImage[]>([
-    {
-      id: 1,
-      url: "https://images.unsplash.com/photo-1581600140682-79c5fe8828d3?w=800&q=80",
-      title: "Wedding Photography",
-      category: "Wedding",
-    },
-    {
-      id: 2,
-      url: "https://images.unsplash.com/photo-1533854775446-95c8a5b7a101?w=800&q=80",
-      title: "Portrait Session",
-      category: "Portrait",
-    },
-    {
-      id: 3,
-      url: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
-      title: "Corporate Event",
-      category: "Event",
-    },
-    {
-      id: 4,
-      url: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&q=80",
-      title: "Family Portrait",
-      category: "Portrait",
-    },
-    {
-      id: 5,
-      url: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800&q=80",
-      title: "Landscape Photography",
-      category: "Landscape",
-    },
-    {
-      id: 6,
-      url: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80",
-      title: "Wedding Ceremony",
-      category: "Wedding",
-    },
-  ]);
+const emptyForm: Omit<GalleryItem, "id"> = {
+  category: "",
+  title: "",
+  description: "",
+  image_url: "",
+};
 
-  const [newImage, setNewImage] = useState({
-    url: "",
-    title: "",
-    category: "",
-  });
+const categories = [
+  { id: "project", name: "Project" },
+  { id: "team", name: "Team" },
+  { id: "events", name: "Events" },
+  { id: "sport", name: "Sport" },
+];
 
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
-  const [filter, setFilter] = useState("All");
-  const [isAdding, setIsAdding] = useState(false);
-  const [isDeleting, setIsDeleting] = useState<number | null>(null);
+export default function GalleryAdmin() {
+  const supabase = createClientComponentClient();
+  const [items, setItems] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [form, setForm] = useState<Omit<GalleryItem, "id">>(emptyForm);
+  const [editId, setEditId] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const categories = ["All", "Wedding", "Portrait", "Event", "Landscape"];
-
-  const handleDelete = (id: number) => {
-    setIsDeleting(id);
-    // Simulate API call
-    setTimeout(() => {
-      setImages(images.filter((image) => image.id !== id));
-      setIsDeleting(null);
-    }, 500);
+  // Fetch items
+  const fetchItems = async () => {
+    setLoading(true);
+    setMessage(null);
+    const { data, error } = await supabase
+      .from("gallery")
+      .select("*")
+      .order("id", { ascending: false });
+    setItems(data || []);
+    if (error) setMessage("Failed to fetch gallery: " + error.message);
+    setLoading(false);
   };
 
-  const handleAdd = () => {
-    if (newImage.url && newImage.title && newImage.category) {
-      setIsAdding(true);
-      // Simulate API call
-      setTimeout(() => {
-        const newId = Math.max(...images.map((img) => img.id), 0) + 1;
-        setImages([
-          ...images,
-          {
-            id: newId,
-            ...newImage,
-          },
-        ]);
-        setNewImage({ url: "", title: "", category: "" });
-        setIsAdding(false);
-      }, 500);
+  useEffect(() => {
+    fetchItems();
+    // eslint-disable-next-line
+  }, []);
+
+  // Form handlers
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMessage(null);
+    if (
+      !form.category ||
+      !form.title ||
+      !form.description ||
+      !form.image_url
+    ) {
+      setMessage("All fields are required.");
+      return;
+    }
+    if (editId) {
+      const { error } = await supabase
+        .from("gallery")
+        .update(form)
+        .eq("id", editId);
+      if (error) setMessage("Failed to update: " + error.message);
+      else {
+        setMessage("Gallery item updated!");
+        setEditId(null);
+        setForm(emptyForm);
+        fetchItems();
+      }
+    } else {
+      const { error } = await supabase.from("gallery").insert([form]);
+      if (error) setMessage("Failed to add: " + error.message);
+      else {
+        setMessage("Gallery item added!");
+        setForm(emptyForm);
+        fetchItems();
+      }
     }
   };
 
-  const filteredImages =
-    filter === "All" ? images : images.filter((img) => img.category === filter);
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
+  const handleEdit = (item: GalleryItem) => {
+    setEditId(item.id);
+    setForm({
+      category: item.category,
+      title: item.title,
+      description: item.description,
+      image_url: item.image_url,
+    });
+    setMessage(null);
   };
 
-  const item = {
-    hidden: { opacity: 0, scale: 0.9 },
-    show: { opacity: 1, scale: 1 },
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete this item?")) return;
+    const { error } = await supabase.from("gallery").delete().eq("id", id);
+    if (error) setMessage("Failed to delete: " + error.message);
+    else {
+      setMessage("Deleted!");
+      fetchItems();
+    }
+  };
+
+  // Category select handler (for clarity, but you can just use handleChange)
+  const handleCategorySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setForm((prev) => ({ ...prev, category: e.target.value }));
+  };
+
+  // Image Upload
+  const handleImageSelect = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setMessage(null);
+    const ext = file.name.split(".").pop();
+    const filePath = `gallery-images/${Date.now()}-${Math.random()
+      .toString(36)
+      .substring(2)}.${ext}`;
+    const { error } = await supabase.storage
+      .from("gallery-images")
+      .upload(filePath, file, { upsert: false });
+    if (error) {
+      setMessage("Failed to upload image: " + error.message);
+      setUploading(false);
+      return;
+    }
+    const { data: publicUrlData } = supabase.storage
+      .from("gallery-images")
+      .getPublicUrl(filePath);
+    if (publicUrlData?.publicUrl)
+      setForm((prev) => ({ ...prev, image_url: publicUrlData.publicUrl }));
+    else setMessage("Failed to get image URL.");
+    setUploading(false);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <DashboardNavbar />
-
-      <div className="container mx-auto px-4 py-8">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4"
+    <>
+    <DashboardNavbar />
+    <div className="max-w-5xl mx-auto py-8 min-h-screen">
+      <h1 className="text-3xl font-bold mb-6">Gallery Admin</h1>
+      {message && (
+        <div className="mb-4 flex items-center bg-blue-900 text-blue-200 px-4 py-2 rounded">
+          <span className="flex-1">{message}</span>
+          <button onClick={() => setMessage(null)} className="ml-2 p-1">
+            <X size={16} />
+          </button>
+        </div>
+      )}
+      {/* Add/Edit Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="mb-8 bg-gray-900 p-6 rounded-lg shadow flex flex-wrap gap-4"
+      >
+        <select
+          name="category"
+          value={form.category}
+          onChange={handleCategorySelect}
+          className="p-2 rounded bg-gray-800 text-white border border-gray-700 min-w-[120px]"
+          required
         >
-          <h1 className="text-3xl font-bold text-[#468e83] dark:text-[#e3e7d7]">
-            Gallery Management
-          </h1>
-
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="bg-[#468e83] hover:bg-[#468e83]/90 text-white flex items-center gap-2 transition-all duration-300 transform hover:scale-105">
-                <Plus size={16} />
-                Add Image
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
-              <DialogHeader>
-                <DialogTitle className="text-[#468e83] dark:text-[#e3e7d7]">
-                  Add New Image
-                </DialogTitle>
-              </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="image-url">Image URL</Label>
-                  <Input
-                    id="image-url"
-                    placeholder="https://example.com/image.jpg"
-                    value={newImage.url}
-                    onChange={(e) =>
-                      setNewImage({ ...newImage, url: e.target.value })
-                    }
-                    className="border-[#468e83] focus:border-[#468e83] focus:ring-[#468e83]"
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="image-title">Title</Label>
-                  <Input
-                    id="image-title"
-                    placeholder="Wedding Photography"
-                    value={newImage.title}
-                    onChange={(e) =>
-                      setNewImage({ ...newImage, title: e.target.value })
-                    }
-                    className="border-[#468e83] focus:border-[#468e83] focus:ring-[#468e83]"
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="image-category">Category</Label>
-                  <select
-                    id="image-category"
-                    value={newImage.category}
-                    onChange={(e) =>
-                      setNewImage({ ...newImage, category: e.target.value })
-                    }
-                    className="flex h-10 w-full rounded-md border border-[#468e83] bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#468e83] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    <option value="" disabled>
-                      Select a category
-                    </option>
-                    {categories
-                      .filter((c) => c !== "All")
-                      .map((category) => (
-                        <option key={category} value={category}>
-                          {category}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-              </div>
-              <div className="flex justify-end gap-2">
-                <DialogClose asChild>
-                  <Button variant="outline">Cancel</Button>
-                </DialogClose>
-                <DialogClose asChild>
-                  <Button
-                    onClick={handleAdd}
-                    className="bg-[#468e83] hover:bg-[#468e83]/90 text-white"
-                    disabled={
-                      !newImage.url ||
-                      !newImage.title ||
-                      !newImage.category ||
-                      isAdding
-                    }
-                  >
-                    {isAdding ? (
-                      <>
-                        <svg
-                          className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                          ></circle>
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                          ></path>
-                        </svg>
-                        Adding...
-                      </>
-                    ) : (
-                      <>Add Image</>
-                    )}
-                  </Button>
-                </DialogClose>
-              </div>
-            </DialogContent>
-          </Dialog>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
-          className="flex flex-wrap gap-2 mb-6"
-        >
-          {categories.map((category) => (
-            <Button
-              key={category}
-              variant={filter === category ? "default" : "outline"}
-              onClick={() => setFilter(category)}
-              className={`${filter === category ? "bg-[#468e83] text-white" : "border-[#468e83] text-[#468e83]"} hover:bg-[#468e83]/10 transition-all duration-300`}
-            >
-              {category}
-            </Button>
+          <option value="">Select Category</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.name}
+            </option>
           ))}
-        </motion.div>
-
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        </select>
+        <input
+          type="text"
+          name="title"
+          value={form.title}
+          onChange={handleChange}
+          placeholder="Title"
+          className="p-2 rounded bg-gray-800 text-white border border-gray-700 flex-1 min-w-[140px]"
+          required
+        />
+        <input
+          type="text"
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          placeholder="Description"
+          className="p-2 rounded bg-gray-800 text-white border border-gray-700 flex-1 min-w-[140px]"
+          required
+        />
+        <input
+          type="text"
+          name="image_url"
+          value={form.image_url}
+          onChange={handleChange}
+          placeholder="Paste image URL"
+          className="p-2 rounded bg-gray-800 text-white border border-gray-700 flex-1"
+          required
+        />
+        <input
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          className="hidden"
+          onChange={handleImageSelect}
+        />
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          className="bg-gray-700 hover:bg-gray-600 text-white rounded px-3 py-2 flex items-center"
+          disabled={uploading}
         >
-          <AnimatePresence>
-            {filteredImages.map((image) => (
-              <motion.div
-                key={image.id}
-                variants={item}
-                layout
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md border border-gray-100 dark:border-gray-700 group"
-                whileHover={{
-                  y: -5,
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="relative aspect-video overflow-hidden">
-                  <Image
-                    src={image.url}
-                    alt={image.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <Button
-                      variant="destructive"
-                      size="icon"
-                      onClick={() => handleDelete(image.id)}
-                      className="rounded-full bg-red-500 hover:bg-red-600 transition-all duration-300 transform hover:scale-110"
-                    >
-                      <Trash2 size={16} />
-                    </Button>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="font-semibold text-[#468e83] dark:text-[#e3e7d7] mb-1">
-                    {image.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {image.category}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {filteredImages.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-12"
+          <UploadCloud className="w-5 h-5 mr-1" />
+          {uploading ? "Uploading..." : "Select Image"}
+        </button>
+        <button
+          type="submit"
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+          disabled={uploading}
+        >
+          {editId ? (
+            <span className="flex items-center">
+              <Pencil className="mr-1 w-4 h-4" /> Update
+            </span>
+          ) : (
+            <span className="flex items-center">
+              <Plus className="mr-1 w-4 h-4" /> Add
+            </span>
+          )}
+        </button>
+        {editId && (
+          <button
+            type="button"
+            onClick={() => {
+              setEditId(null);
+              setForm(emptyForm);
+            }}
+            className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded"
           >
-            <ImageIcon className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-2 text-lg font-medium text-gray-900 dark:text-gray-100">
-              No images found
-            </h3>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              {filter !== "All"
-                ? `No images in the ${filter} category. Try another category or add new images.`
-                : "Get started by adding some images to your gallery."}
-            </p>
-          </motion.div>
+            Cancel
+          </button>
         )}
-
-        <Dialog>
-          <DialogContent className="max-w-4xl p-0 overflow-hidden">
-            {selectedImage && (
-              <div className="relative">
-                <DialogClose className="absolute top-2 right-2 z-10">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-full bg-black/20 hover:bg-black/40 text-white"
-                  >
-                    <X size={18} />
-                  </Button>
-                </DialogClose>
-                <div className="relative aspect-video">
-                  <Image
-                    src={selectedImage.url}
-                    alt={selectedImage.title}
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <div className="p-4 bg-white dark:bg-gray-800">
-                  <h2 className="text-xl font-semibold text-[#468e83] dark:text-[#e3e7d7]">
-                    {selectedImage.title}
-                  </h2>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    {selectedImage.category}
-                  </p>
-                </div>
-              </div>
-            )}
-          </DialogContent>
-        </Dialog>
+      </form>
+      {/* Gallery List */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {items.map((item) => (
+          <div
+            key={item.id}
+            className="bg-gray-900 rounded-lg shadow p-4 flex flex-col"
+          >
+            <img
+              src={item.image_url}
+              alt={item.title}
+              className="w-full h-40 object-cover rounded mb-2"
+            />
+            <div className="font-semibold text-white">{item.title}</div>
+            <div className="text-sm text-gray-300 mb-2">{item.description}</div>
+            <div className="text-xs text-gray-400 mb-2">
+              {categories.find((c) => c.id === item.category)?.name}
+            </div>
+            <div className="flex gap-2 mt-auto">
+              <button
+                onClick={() => handleEdit(item)}
+                className="inline-flex items-center gap-1 text-yellow-400 hover:text-yellow-300 px-2 py-1 rounded"
+                title="Edit"
+              >
+                <Pencil className="w-4 h-4" /> Edit
+              </button>
+              <button
+                onClick={() => handleDelete(item.id)}
+                className="inline-flex items-center gap-1 text-red-400 hover:text-red-300 px-2 py-1 rounded"
+                title="Delete"
+              >
+                <Trash2 className="w-4 h-4" /> Delete
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
+  </>
   );
 }

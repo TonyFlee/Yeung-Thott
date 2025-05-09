@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/context/language-context";
 import { useRef, useState, useEffect } from "react";
 import emailjs from "emailjs-com";
+import { createClientComponentClient } from "@/supabase/client";
 
 // Animation variants
 const fadeUpVariants = {
@@ -46,12 +47,39 @@ export default function ContactPage() {
     };
   }, []);
 
+  // Supabase client
+  const supabase = createClientComponentClient();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setDone(false);
     setError(null);
 
+    // Get form values
+    const form = formRef.current;
+    const formData = new FormData(form!);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const message = formData.get("message") as string;
+
+    // Send to Supabase
+    let supabaseError = null;
+    try {
+      const { error: sbError } = await supabase.from("messages").insert([
+        {
+          name,
+          email,
+          subject: "",
+          content: message,
+        },
+      ]);
+      if (sbError) supabaseError = sbError.message;
+    } catch (err: any) {
+      supabaseError = err.message;
+    }
+
+    // Send to emailjs as before
     emailjs
       .sendForm(
         "service_rpbfotn",
@@ -62,11 +90,19 @@ export default function ContactPage() {
       .then(
         () => {
           setLoading(false);
-          setDone(true);
+          if (supabaseError) {
+            setError("Email sent but failed to save message: " + supabaseError);
+          } else {
+            setDone(true);
+          }
         },
         () => {
           setLoading(false);
-          setError("Failed to send message. Please try again.");
+          setError(
+            supabaseError
+              ? "Failed to send email and failed to save message: " + supabaseError
+              : "Failed to send message. Please try again."
+          );
         }
       );
   };

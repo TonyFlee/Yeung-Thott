@@ -55,7 +55,7 @@ export default async function SignInPage({ searchParams }: LoginProps) {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="yeungthott@gmail.com"
+                  placeholder="info@example.com"
                   required
                   className="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 />
@@ -69,12 +69,6 @@ export default async function SignInPage({ searchParams }: LoginProps) {
                   >
                     Password
                   </Label>
-                  <Link
-                    className="text-xs text-muted-foreground hover:text-foreground hover:underline transition-all"
-                    href="/forgot-password"
-                  >
-                    Forgot Password?
-                  </Link>
                 </div>
                 <Input
                   id="password"
@@ -89,7 +83,7 @@ export default async function SignInPage({ searchParams }: LoginProps) {
             </div>
 
             <SubmitButton
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+              className="w-full bg-cyan-400 hover:bg-blue-200 text-white"
               pendingText="Signing in..."
               formAction={signInAction}
             >
@@ -97,11 +91,6 @@ export default async function SignInPage({ searchParams }: LoginProps) {
             </SubmitButton>
 
             <FormMessage message={message} />
-
-            <div className="text-center text-sm text-muted-foreground dark:text-gray-400 mt-4">
-              <p>Admin Email: yeungthott@gmail.com</p>
-              <p>Password: @YeungThott@66</p>
-            </div>
           </form>
         </div>
       </div>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClientComponentClient } from "@/supabase/client-component";
 import { Pencil, Trash2, Plus, X } from "lucide-react";
+import DashboardNavbar from "@/components/dashboard-navbar";
 
 type FacebookPost = {
   id: string;
@@ -114,6 +115,8 @@ export default function FacebookPostsAdmin() {
   };
 
   return (
+    <>
+      <DashboardNavbar />
     <div className="min-h-screen bg-gray-950 py-10 px-4">
       <div className="max-w-5xl mx-auto">
         {/* Title */}
@@ -280,5 +283,6 @@ export default function FacebookPostsAdmin() {
         </div>
       </div>
     </div>
+    </>
   );
 }

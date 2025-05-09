@@ -18,6 +18,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/context/language-context";
+import { createClientComponentClient } from "@/supabase/client";
 
 // Animation variants
 const fadeUpVariants = {
@@ -35,10 +36,18 @@ const loadingVariants = {
   visible: { opacity: 1, transition: { duration: 0.4, yoyo: Infinity } },
 };
 
+type Message = {
+  id: string;
+  name: string;
+  content: string;
+  created_at: string;
+};
+
 export default function Home() {
   const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(true);
   const [loadingText, setLoadingText] = useState("Loading.");
+  const [latestMessages, setLatestMessages] = useState<Message[]>([]);
 
   // Simulate loading effect
   useEffect(() => {
@@ -57,6 +66,20 @@ export default function Home() {
       clearTimeout(timer);
       clearInterval(loadingInterval);
     };
+  }, []);
+
+  // Fetch latest messages from Supabase
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const supabase = createClientComponentClient();
+      const { data } = await supabase
+        .from("messages")
+        .select("id, name, content, created_at")
+        .order("created_at", { ascending: false })
+        .limit(3);
+      setLatestMessages(data || []);
+    };
+    fetchMessages();
   }, []);
 
   if (isLoading) {

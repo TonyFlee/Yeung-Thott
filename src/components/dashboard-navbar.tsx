@@ -40,10 +40,10 @@ export default function DashboardNavbar() {
 
   const navItems = [
     { href: "/dashboard", icon: <Home size={18} />, label: "Dashboard" },
-    { href: "#", icon: <Image size={18} />, label: "Gallery" },
-    { href: "#", icon: <Facebook size={18} />, label: "Posts" },
-    { href: "#", icon: <MessageSquare size={18} />, label: "Messages" },
-    { href: "#", icon: <BarChart3 size={18} />, label: "Analytics" },
+    { href: "/dashboard/gallery", icon: <Image size={18} />, label: "Gallery" },
+    { href: "/dashboard/posts", icon: <Facebook size={18} />, label: "Posts" },
+    { href: "/dashboard/messages", icon: <MessageSquare size={18} />, label: "Messages" },
+    { href: "/dashboard/analytics", icon: <BarChart3 size={18} />, label: "Analytics" },
   ];
 
   return (
