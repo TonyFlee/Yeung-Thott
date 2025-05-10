@@ -183,7 +183,7 @@ export default function NavbarClient({ isAdmin }: NavbarClientProps) {
                   transition={{ delay: 0.1 }}
                 >
                   <Link
-                    href={`/${item}`}
+                    href={`/${item === "home" ? "" : item}`}
                     className="text-gray-700 dark:text-gray-300 hover:text-[#468e83] dark:hover:text-[#e3e7d7] font-medium transition-colors duration-300 py-2 px-3 rounded-md hover:bg-[#468e83]/10 dark:hover:bg-[#e3e7d7]/10"
                     onClick={() => setMobileMenuOpen(false)}
                   >

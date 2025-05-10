@@ -103,7 +103,7 @@ export default async function Dashboard() {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Embed and manage Facebook posts on your website.
               </p>
-              <Link href="/dashboard/facebook">
+              <Link href="/dashboard/posts">
                 <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
                   Manage Posts
                 </button>
